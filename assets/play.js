@@ -1,7 +1,7 @@
 // Interactive pieces: the churn lab, the SQL terminal over the career, the skills graph.
 const $ = (s, r = document) => r.querySelector(s);
 const $$ = (s, r = document) => [...r.querySelectorAll(s)];
-const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const reduced = window.__reduced ?? matchMedia('(prefers-reduced-motion: reduce)').matches;
 const gsap = window.gsap;
 
 function rng(seed) { let s = seed >>> 0; return () => ((s = (s * 1664525 + 1013904223) >>> 0) / 4294967296); }

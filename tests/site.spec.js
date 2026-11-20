@@ -59,7 +59,16 @@ for (const width of [320, 390, 768, 1024, 1440]) {
   test(`nothing scrolls sideways at ${width}px`, async ({ page }) => {
     await page.setViewportSize({ width, height: 900 });
     await open(page);
-    const overflow = await page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth);
+    // scroll through so every not-yet-revealed element is measured too, then compare with the real screen width
+    // (on phones the browser silently widens the layout to fit overflow, so innerWidth alone hides it)
+    const overflow = await page.evaluate(async (w) => {
+      let worst = 0;
+      for (let y = 0; y < document.body.scrollHeight; y += 700) {
+        window.scrollTo(0, y); await new Promise((r) => setTimeout(r, 30));
+        worst = Math.max(worst, document.documentElement.scrollWidth - w, window.innerWidth - w);
+      }
+      return worst;
+    }, width);
     expect(overflow).toBeLessThanOrEqual(0);
   });
 }

@@ -5,7 +5,7 @@ import { initLab, initTerminal, initGraph, initAgent } from './play.js';
 const $ = (s, r = document) => r.querySelector(s);
 const $$ = (s, r = document) => [...r.querySelectorAll(s)];
 const root = document.documentElement;
-const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const reduced = window.__reduced ?? matchMedia('(prefers-reduced-motion: reduce)').matches;
 const fine = matchMedia('(pointer: fine)').matches;
 const { gsap, ScrollTrigger, Lenis } = window;
 const motion = !reduced && !!gsap && !!ScrollTrigger;
@@ -24,7 +24,10 @@ if (motion) {
     gsap.ticker.lagSmoothing(0);
   }
 }
+let navLockUntil = 0;   // the nav stays visible while the page scrolls itself to a section
 const scrollToEl = (el) => {
+  navLockUntil = performance.now() + 2200;
+  document.querySelector('.nav')?.classList.remove('is-hidden');
   if (lenis) lenis.scrollTo(el, { duration: 1.6, easing: (t) => 1 - Math.pow(1 - t, 4) });
   else el.scrollIntoView({ behavior: reduced ? 'auto' : 'smooth' });
 };
@@ -142,7 +145,7 @@ function neuralNet(cv) {
       ctx.beginPath(); ctx.arc(n.x, n.y, 6 + g * 2, 0, 7); ctx.fill(); ctx.stroke();
       if (g > 0) { ctx.fillStyle = `rgba(76,240,200,${g * 0.8})`; ctx.beginPath(); ctx.arc(n.x, n.y, 3, 0, 7); ctx.fill(); }
     }
-    if (on) raf = requestAnimationFrame(draw);
+    if (on || pulses.length) raf = requestAnimationFrame(draw); else raf = 0;
   }
   layout();
   window.addEventListener('resize', layout);
@@ -151,15 +154,31 @@ function neuralNet(cv) {
     if (ev.target.closest('a')) return;
     const first = edges.filter(([a]) => a.li === 0);
     for (let i = 0; i < 26; i++) pulses.push({ e: first[Math.floor(Math.random() * first.length)], t: -Math.random() * 0.4, s: 1.6 + Math.random() * 1.4 });
-    if (!on) { last = performance.now(); raf = requestAnimationFrame(draw); }
+    if (!raf) { last = performance.now(); raf = requestAnimationFrame(draw); }
   });
   new IntersectionObserver(([e]) => {
-    if (e.isIntersecting && !on) { on = !reduced; last = performance.now(); raf = requestAnimationFrame(draw); }
-    else if (!e.isIntersecting) { on = false; cancelAnimationFrame(raf); }
+    if (e.isIntersecting && !on) { on = !reduced; if (!raf) { last = performance.now(); raf = requestAnimationFrame(draw); } }
+    else if (!e.isIntersecting) { on = false; cancelAnimationFrame(raf); raf = 0; }
   }).observe(cv);
 }
 $$('canvas.nn').forEach(neuralNet);
 $$('.viz-science').forEach((v) => v.closest('.card').classList.add('is-clickable'));
+
+/* ---------- back to top, and the motion switch ---------- */
+const toTop = $('.to-top');
+const showTop = () => toTop.classList.toggle('is-on', window.scrollY > window.innerHeight * 1.2 && !root.classList.contains('is-exploring'));
+window.addEventListener('scroll', showTop, { passive: true });
+showTop();
+function setMotion(v) { try { localStorage.setItem('zs-motion', v); } catch (e) { /* storage blocked */ } location.reload(); }
+const motionBtn = $('.motion-toggle');
+motionBtn.textContent = reduced ? 'Turn animations on' : 'Turn animations off';
+motionBtn.addEventListener('click', () => setMotion(reduced ? 'on' : 'off'));
+const note = $('.motion-note');
+let noteDismissed = false;
+try { noteDismissed = sessionStorage.getItem('zs-motion-note') === 'x'; } catch (e) { /* ignore */ }
+if (window.__osReduced && !window.__motionPick && !noteDismissed) note.hidden = false;
+$('[data-motion="on"]', note).addEventListener('click', () => setMotion('on'));
+$('.motion-note__x', note).addEventListener('click', () => { note.hidden = true; try { sessionStorage.setItem('zs-motion-note', 'x'); } catch (e) { /* ignore */ } });
 
 /* ---------- interactive sections ---------- */
 initLab();
@@ -523,7 +542,7 @@ function runMotion() {
   gsap.set('.ba__b', { scaleX: 0 });
   ScrollTrigger.create({ trigger: '.ba', start: 'top 80%', once: true, onEnter: () => gsap.to('.ba__b', { scaleX: 1, duration: 1.4, ease: 'expo.out', stagger: .09 }) });
   gsap.fromTo('.tl__line i', { scaleY: 0 }, { scaleY: 1, ease: 'none', scrollTrigger: { trigger: '.tl', start: 'top 70%', end: 'bottom 70%', scrub: true } });
-  $$('.tl__item').forEach((it) => gsap.from(it, { opacity: 0, x: 40, duration: 1, ease: 'expo.out', scrollTrigger: { trigger: it, start: 'top 85%', once: true } }));
+  $$('.tl__item').forEach((it) => gsap.from(it, { opacity: 0, y: 30, duration: 1, ease: 'expo.out', scrollTrigger: { trigger: it, start: 'top 85%', once: true } }));
 
   /* skills */
   $$('.lv__m').forEach((m) => m.style.setProperty('--s', 0));
@@ -550,7 +569,7 @@ function runMotion() {
     onUpdate: (s) => {
       const y = s.scroll();
       nav.classList.toggle('is-scrolled', y > 40);
-      nav.classList.toggle('is-hidden', s.direction === 1 && y > window.innerHeight * 0.8 && menu.hidden);
+      if (performance.now() > navLockUntil) nav.classList.toggle('is-hidden', s.direction === 1 && y > window.innerHeight * 0.8 && menu.hidden);
       gsap.set('.progress i', { scaleX: s.progress });
     },
   });

@@ -16,7 +16,17 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,300..800;1,300..600&family=JetBrains+Mono:wght@400;500&display=swap">
   <link rel="stylesheet" href="assets/site.css">
   <script type="importmap">{ "imports": { "three": "./assets/vendor/three.module.min.js", "three/addons/": "./assets/vendor/jsm/" } }</script>
-  <script>document.documentElement.classList.add('js');</script>
+  <script>
+    (function () {
+      var d = document.documentElement, pick = null;
+      d.classList.add('js');
+      try { pick = localStorage.getItem('zs-motion'); } catch (e) {}
+      window.__osReduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+      window.__motionPick = pick;
+      window.__reduced = pick ? pick === 'off' : window.__osReduced;
+      if (window.__reduced) d.classList.add('reduce');
+    })();
+  </script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -642,9 +652,17 @@
     <div class="wrap foot__row">
       <span>© 2026 Zakir Siddiqui · Maharashtra, India · working remotely</span>
       <span>Built with Three.js, GSAP and Lenis</span>
+      <button type="button" class="motion-toggle">Turn animations off</button>
       <a class="link" href="#top">Back to top</a>
     </div>
   </footer>
+
+  <a class="to-top" href="#top" aria-label="Back to top"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+  <div class="motion-note" role="status" hidden>
+    <span>Animations are off because your device asks for reduced motion.</span>
+    <button type="button" data-motion="on">Turn them on</button>
+    <button type="button" class="motion-note__x" aria-label="Dismiss">×</button>
+  </div>
 
   <script src="assets/vendor/gsap.min.js" defer></script>
   <script src="assets/vendor/ScrollTrigger.min.js" defer></script>
