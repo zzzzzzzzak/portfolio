@@ -1,36 +1,39 @@
-# zzzzzzzzak.github.io
+# Portfolio — Zakir Siddiqui
 
 The portfolio of **Zakir Siddiqui**, data analyst and ML engineer: data analysis, data science,
 ML systems, backend pipelines and web front ends, with the real numbers from each project.
 
-**Live:** https://zzzzzzzzak.github.io
+**Live:** https://zzzzzzzzak.github.io/portfolio/
 
 ## What is in it
 
 | Section | What it shows |
 |---|---|
-| Hero | A notebook querying 7,043 customer records, churn by contract type |
-| Data analysis and data science | SQL window functions, a walk-forward backtest, AI output rating |
-| ML, backend and web engineering | INT4/INT8 quantization, a scheduled GitHub Actions pipeline, a Streamlit app |
-| Projects | Six repositories with their test results, as tabs |
-| Roles | Eight roles since 2017, with four before-and-after results |
-| About | Civil engineering to data, and education |
-| Skills | 14 tools and skill levels |
+| Hero | A live 3D city (Three.js): drag to orbit, hover or click a building to inspect it, switch City / Data model; it also morphs into a 3D bar chart as you scroll |
+| Numbers | Six counters from real results: 4.5M records a day, 82.1% recall, 7.47x compression |
+| Story | A blueprint house that draws itself, gets dimensioned, then turns into a data chart: civil engineering to data |
+| Work | Data analysis, data science and ML, backend pipelines, web development, each with a live visual |
+| Lab | Switch between the three churn models and watch 374 churners light up; run the churn-by-contract query and click the bars |
+| Agents | Agentic AI with LLMs: tool use, planning loops, RAG, evals and guardrails, plus a live agent that plans, calls real tools (SQL over career.db, a calculator, search over the page) and checks its answer, animated on a diagram |
+| Projects | Seven repositories in a horizontal scroll, each with its test results as an animated chart |
+| Experience | Eight roles since 2017 on a drawn timeline, with four before-and-after bars |
+| Skills | Marquee, a draggable physics graph of tools by discipline, skill levels and education |
+| Terminal | A SQL prompt over the career: projects, roles, skills, education (WHERE, LIKE, ORDER BY, COUNT) |
 
 ## How it was built
 
-- **[taste-skill](https://github.com/Leonxlnx/taste-skill)**: the layout system, motion and the
-  finish gate. Its dealers picked the centred hero, the green-black palette, Instrument Sans and DM
-  Mono, the nav, the footer and the two moments (liquid type, marquee row). Only the 25 kit files the
-  page loads are in `assets/` (MIT, see `assets/LICENSE-taste-skill`).
-- **[awesome-design-md](https://github.com/VoltAgent/awesome-design-md)**: the format of
-  [`DESIGN.md`](DESIGN.md), which documents this site's tokens and components for people and AI agents.
-- **[impeccable](https://github.com/pbakaus/impeccable)**: its audit dimensions (accessibility,
-  responsive layout, touch targets, motion, implementation integrity) became the test suite.
+- **Three.js** (r170): one instanced box drawn 576 times; the blueprint edges, lit windows and the
+  city-to-chart morph are all in custom shaders, with an Unreal bloom pass on larger screens.
+- **GSAP + ScrollTrigger**: pinned scroll scenes (hero morph, blueprint drawing, horizontal projects),
+  word-by-word heading reveals, counters, magnetic buttons and tilt cards.
+- **Lenis**: smooth scrolling.
+- **[awesome-design-md](https://github.com/VoltAgent/awesome-design-md)**: the format of [`DESIGN.md`](DESIGN.md).
+- **[impeccable](https://github.com/pbakaus/impeccable)**: its audit dimensions became the test suite.
 - **[Playwright](https://github.com/microsoft/playwright)**: runs those tests on desktop and phone
-  viewports on every push, with axe-core for WCAG 2.2 AA.
+  viewports, with axe-core for WCAG 2.2 AA.
 
-Plain HTML and CSS, no build step.
+All libraries are vendored in `assets/vendor/` (MIT licensed), so there is no build step and no CDN at runtime.
+With `prefers-reduced-motion`, nothing is pinned or animated and every section shows its finished state.
 
 ## Run it locally
 

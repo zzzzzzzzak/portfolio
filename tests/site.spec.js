@@ -1,5 +1,6 @@
 // Quality checks for the portfolio, after impeccable's audit dimensions:
 // accessibility, responsive layout, touch targets, motion and implementation integrity.
+// The page has a loader and pinned scroll scenes, so checks wait for the network to settle.
 const { test, expect } = require('@playwright/test');
 const AxeBuilder = require('@axe-core/playwright').default;
 
@@ -77,22 +78,72 @@ test('every link and button outside running text is at least 24px tall on a phon
   expect(small).toEqual([]);
 });
 
-test('project tabs show their own text and screen, by click and by arrow key', async ({ page, isMobile }) => {
+test('the 3D hero, the blueprint story and seven projects are on the page', async ({ page }) => {
   await open(page);
-  const tabs = page.getByRole('tab');
-  await expect(tabs).toHaveCount(6);
-  for (let i = 1; i <= 6; i++) {
-    await page.locator(`#t-${i}`).click();
-    await expect(page.locator(`#t-${i}`)).toHaveAttribute('aria-selected', 'true');
-    await expect(page.locator(`#p-${i}`)).toBeVisible();
-    await expect(page.locator(`#s-${i}`)).toBeVisible();
-    for (let j = 1; j <= 6; j++) if (j !== i) await expect(page.locator(`#p-${j}`)).toBeHidden();
-  }
-  if (!isMobile) {
-    await page.locator('#t-1').click();
-    await page.keyboard.press('ArrowRight');
-    await expect(page.locator('#t-2')).toHaveAttribute('aria-selected', 'true');
-  }
+  await expect(page.locator('.hero__canvas')).toBeVisible();
+  await expect(page.locator('.story .step')).toHaveCount(4);
+  await expect(page.locator('.bp')).toBeVisible();
+  await expect(page.locator('.proj')).toHaveCount(7);
+  for (const c of await page.locator('.chart[data-chart]').all()) await expect(c.locator('.chart__row').first()).toBeAttached();
+});
+
+test('the phone menu opens and closes', async ({ page, isMobile }) => {
+  test.skip(!isMobile, 'desktop shows the links inline');
+  await open(page);
+  const btn = page.locator('.nav__menu-btn');
+  await page.waitForTimeout(3200);   // the loader
+  await btn.click();
+  await expect(page.locator('#menu')).toBeVisible();
+  await expect(btn).toHaveAttribute('aria-expanded', 'true');
+  await btn.click();
+  await expect(page.locator('#menu')).toBeHidden();
+});
+
+test('the churn lab switches models and the terminal answers SQL', async ({ page }) => {
+  await open(page);
+  await page.waitForTimeout(3200);   // the loader
+  await page.locator('#lab').scrollIntoViewIfNeeded();
+  await page.locator('[data-model="0"]').click();
+  await expect(page.locator('.m-recall')).toHaveText('78.1%');
+  await expect(page.locator('.dots i.on')).toHaveCount(292);
+  await page.locator('[data-model="2"]').click();
+  await expect(page.locator('.dots i.on')).toHaveCount(307);
+  const q = page.locator('#tty-q');
+  await q.scrollIntoViewIfNeeded();
+  await q.fill("SELECT company FROM roles WHERE area = 'civil'");
+  await q.press('Enter');
+  await expect(page.locator('.tty__out table').last()).toContainText('Teemage Builders');
+  await q.fill('SELECT nope FROM roles');
+  await q.press('Enter');
+  await expect(page.locator('.tty__out .tl-err').last()).toContainText('no such column');
+});
+
+test('survey mode opens, drives to a project site and closes with Escape', async ({ page, isMobile }) => {
+  test.skip(isMobile, 'keyboard driving');
+  await open(page);
+  await page.waitForTimeout(3200);
+  await page.locator('.survey-open').click();
+  await expect(page.locator('.survey')).toBeVisible();
+  await expect(page.locator('.lm')).toHaveCount(7);
+  await page.keyboard.down('w'); await page.waitForTimeout(1800); await page.keyboard.up('w');
+  await expect(page.locator('.survey__card')).toBeVisible();
+  await expect(page.locator('.sv-n')).not.toHaveText('0');
+  await page.keyboard.press('Escape');
+  await expect(page.locator('.survey')).toBeHidden();
+  await expect(page.locator('.survey-open')).toBeFocused();
+});
+
+test('the agent runs a goal through its tools and answers from the data', async ({ page }) => {
+  await open(page);
+  await page.waitForTimeout(3200);
+  await page.locator('#agents').scrollIntoViewIfNeeded();
+  await page.locator('[data-task="recall"]').click();
+  await expect(page.locator('.agent__answer')).toBeVisible({ timeout: 15000 });
+  await expect(page.locator('.agent__answer')).toContainText('307');
+  await expect(page.locator('.agent__trace .tr__k--act')).toHaveCount(2);
+  await page.locator('#agent-q').fill('Webonise Labs');
+  await page.locator('#agent-q').press('Enter');
+  await expect(page.locator('.agent__answer')).toContainText('450,000', { timeout: 15000 });
 });
 
 test('every in-page link has a target and every outside link is https', async ({ page }) => {
@@ -116,7 +167,7 @@ test('with reduced motion every word is still on screen', async ({ browser }) =>
   const page = await context.newPage();
   await page.goto('/index.html');
   await page.waitForLoadState('networkidle');
-  for (const sel of ['h1', '.hero__lead', '#work-h', '#projects-h', '#experience-h', '#about-h', '#skills-h', '#close-h']) {
+  for (const sel of ['h1', '.hero__lead', '#story-h', '#work-h', '#projects-h', '#experience-h', '#skills-h', '#close-h']) {
     const el = page.locator(sel);
     await el.scrollIntoViewIfNeeded();
     await expect(el).toBeVisible();
