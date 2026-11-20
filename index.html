@@ -1,0 +1,473 @@
+<!doctype html>
+<html lang="en" data-type="software" data-radius="sharp" data-ground="sage" data-buttons="tonal" data-motion>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Zakir Siddiqui: data analyst and ML engineer for remote teams</title>
+<meta name="description" content="Python and SQL pipelines, forecasting and churn models, Power BI dashboards and ML systems, built over six years in finance, healthcare and infrastructure.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Zakir Siddiqui: data analyst and ML engineer">
+<meta property="og:description" content="Python and SQL pipelines, forecasting and churn models, Power BI dashboards and ML systems.">
+<meta property="og:image" content="https://zzzzzzzzak.github.io/share.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<meta name="theme-color" content="#161c1a">
+<link rel="canonical" href="https://zzzzzzzzak.github.io/">
+<meta name="site-kind" content="software">
+<meta name="page-type" content="software">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wdth,wght@75..100,400..700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/system.css">
+<link rel="stylesheet" href="assets/ui/cards.css">
+<link rel="stylesheet" href="assets/motion/motion.css">
+<link rel="stylesheet" href="assets/backgrounds/backgrounds.css">
+<link rel="stylesheet" href="assets/layout/layout.css">
+<link rel="stylesheet" href="assets/icons/icon.css">
+<style>
+:root {
+  --p-bg: #161c1a; --p-surface: #1f2725; --p-ink: #e3e2da; --p-muted: #8e948d;
+  --p-accent: #9fc7b8; --p-accent-ink: #161c1a; --p-action: #9fc7b8; --p-action-ink: #161c1a;
+  --p-inv-bg: #e3e2da; --p-inv-surface: #d3d2cb; --p-inv-ink: #161c1a; --p-inv-muted: #555a55;
+  --p-inv-accent: #161c1a; --p-inv-accent-ink: #e3e2da; --p-inv-action: #161c1a; --p-inv-action-ink: #e3e2da;
+  --font-display: "Instrument Sans", system-ui, sans-serif;
+  --font-text: "Instrument Sans", system-ui, sans-serif;
+  --font-mono: "DM Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  --display-weight: 500;
+  --display-tracking: -0.028em;
+  --display-tracking-xl: -0.036em;
+  --display-stretch: 96%;
+  --ly-scale: 1.04;
+}
+</style>
+<script>document.documentElement.classList.add('m-enter');setTimeout(()=>document.documentElement.classList.add('m-enter-done'),700)</script>
+<script src="assets/backgrounds/backgrounds.js"></script>
+<script>document.documentElement.classList.add('mo-js');setTimeout(()=>document.documentElement.classList.add('mo-safe'),2500)</script>
+<link rel="modulepreload" href="assets/moments/moments.js">
+<link rel="modulepreload" href="assets/moments/lib.js">
+<link rel="modulepreload" href="assets/moments/marquee-row/moment.js">
+<link rel="modulepreload" href="assets/moments/liquid-type/moment.js">
+<!-- page CSS: only the drawn windows and panes inside visuals, and one --p-h per card group -->
+<style>
+/* the windows: Zakir's own notebooks and reports drawn as live HTML */
+.z-win { background: #111614; color: #e3e2da; border-radius: 12px; overflow: hidden; text-align: left;
+  font: 400 14px/1.45 var(--font-text); box-shadow: 0 0 0 1px rgb(227 226 218 / .09), 0 30px 70px -30px rgb(0 0 0 / .8); }
+.z-win__bar { display: flex; align-items: center; gap: 10px; height: 40px; padding: 0 14px; border-bottom: 1px solid rgb(227 226 218 / .08); font-size: 13px; color: #9aa29c; }
+.z-win__bar b { color: #e3e2da; font-weight: 500; } .z-win__bar .sp { flex: 1; }
+.z-win__dots { display: flex; gap: 6px; } .z-win__dots i { width: 10px; height: 10px; border-radius: 50%; background: #343d3a; }
+.z-win__body { display: grid; grid-template-columns: 250px 1fr; min-height: 420px; }
+.z-side { border-right: 1px solid rgb(227 226 218 / .08); padding: 10px; display: grid; align-content: start; gap: 2px; font-size: 13px; }
+.z-side .q { height: 34px; margin-bottom: 6px; border-radius: 8px; background: rgb(227 226 218 / .06); display: flex; align-items: center; padding: 0 10px; color: #8e948d; }
+.z-side .r { display: grid; grid-template-columns: 1fr auto; gap: 1px 8px; padding: 8px; border-radius: 8px; }
+.z-side .r.is-on { background: rgb(159 199 184 / .12); }
+.z-side .r b { font-weight: 500; color: #e3e2da; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-family: var(--font-mono); font-size: 13px; }
+.z-side .r time { color: #8e948d; } .z-side .r span { grid-column: 1 / -1; color: #8e948d; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.z-nb { display: grid; gap: 10px; align-content: start; padding: 16px 18px; min-width: 0; }
+.z-cell { font: 400 13px/1.55 var(--font-mono); background: rgb(227 226 218 / .05); border-radius: 8px; padding: 10px 12px; white-space: pre; overflow: hidden; color: #cfd3cc; }
+.z-cell .k { color: #9fc7b8; } .z-cell .s { color: #e0c48c; } .z-cell .c { color: #7d857f; }
+.z-run { display: flex; align-items: center; gap: 8px; font-size: 13px; color: #9aa29c; }
+.z-run::before { content: ""; width: 12px; height: 12px; border-radius: 50%; border: 2px solid currentColor; border-right-color: transparent; }
+.z-out { display: grid; gap: 6px; font-size: 13px; }
+.z-out .row { display: grid; grid-template-columns: 140px 1fr 56px; align-items: center; gap: 10px; }
+.z-out .bar { height: 8px; border-radius: 99px; background: rgb(227 226 218 / .08); overflow: hidden; }
+.z-out .bar i { display: block; height: 100%; width: var(--v); background: #9fc7b8; border-radius: inherit; }
+.z-out .row b { font-weight: 500; text-align: right; font-variant-numeric: tabular-nums; }
+.z-tags { display: flex; flex-wrap: wrap; gap: 8px; } .z-tags span { height: 28px; padding: 0 10px; border-radius: 99px; display: inline-flex; align-items: center; font-size: 13px; font-weight: 500; background: #9fc7b8; color: #161c1a; }
+.z-tags span + span { background: rgb(227 226 218 / .08); color: #e3e2da; }
+.hero__window { background:
+  radial-gradient(70% 60% at 30% 0%, #2f5a4c 0, transparent 70%),
+  radial-gradient(60% 70% at 85% 20%, #24443c 0, transparent 70%),
+  linear-gradient(#1b2a26, #161c1a); }
+@media (max-width: 639px) {
+  .z-win__body { grid-template-columns: 1fr; } .z-side { display: none; }
+  .z-win__bar .sp ~ span { display: none; } .hero__window .z-run { display: none; }
+  .z-cell { font-size: 12.5px; } .z-out .row { grid-template-columns: 112px 1fr 48px; }
+}
+
+/* small panes in the cards and the tab screens */
+.z-pane { background: #111614; color: #e3e2da; border-radius: 10px; padding: 14px 16px; font: 400 13px/1.45 var(--font-text);
+  box-shadow: 0 0 0 1px rgb(227 226 218 / .09), 0 20px 40px -20px rgb(0 0 0 / .7); text-align: left; }
+.z-pane h4 { margin: 0 0 10px; font: 500 13px/1.3 var(--font-mono); color: #9aa29c; }
+.z-pane pre { margin: 0; font: 400 13px/1.55 var(--font-mono); white-space: pre; overflow: hidden; color: #cfd3cc; }
+.z-pane pre .k { color: #9fc7b8; } .z-pane pre .s { color: #e0c48c; } .z-pane pre .c { color: #7d857f; }
+.z-kv { display: grid; } .z-kv span { display: flex; justify-content: space-between; gap: 12px; padding: 7px 0; border-top: 1px solid rgb(227 226 218 / .07); }
+.z-kv span:first-child { border-top: 0; padding-top: 0; } .z-kv b { font-weight: 500; color: #fff; font-variant-numeric: tabular-nums; }
+.z-kv b.up { color: #9fc7b8; }
+.z-big { font: 500 32px/1 var(--font-display); letter-spacing: -0.02em; color: #fff; font-variant-numeric: tabular-nums; }
+.z-spark { display: block; width: 100%; height: 64px; margin-top: 10px; }
+
+.work .panel { --p-h: 340px; }
+.work .z-kv span:nth-child(n+6) { display: none; }
+.work .z-pane { font-size: 14px; padding: 18px 20px; } .work .z-pane pre { font-size: 13px; line-height: 22px; } .z-pane pre .ln { display: block; } .work .z-pane pre .ln:nth-child(n+8) { display: none; }
+.work .z-kv span { padding: 11px 0; }
+.work .panel { background: linear-gradient(160deg, #22302c, #1a2220); }
+.work .stage { --fade-h: 72px; }
+
+#projects .frame--split { --ratio: 100%; background: radial-gradient(80% 70% at 20% 0%, #2c4a41 0, transparent 70%), linear-gradient(#1d2724, #161c1a); }
+#projects .stage { position: absolute; inset: 0; width: auto; overflow: hidden; }
+#projects .z-pane { font-size: 14px; padding: 20px 22px; }
+#projects .z-pane h4 { margin-bottom: 16px; }
+#projects .z-kv span { padding: 11px 0; }
+#projects .z-table td { padding: 11px 0; font-size: 14px; }
+#projects .z-spark { height: 120px; }
+#projects .stage > [role="tabpanel"] { position: absolute; left: 32px; right: 32px; top: 32px; }
+#projects [role="tabpanel"] > p { margin: 0; }
+#projects .tab-copy { min-height: 150px; margin-top: var(--s-6); }
+#projects .tab-copy > div > p { margin-top: 0; }
+#projects .tab-copy .link { margin-top: var(--s-4); }
+.z-table { width: 100%; border-collapse: collapse; font-size: 13px; font-variant-numeric: tabular-nums; }
+.z-table th { text-align: left; font-weight: 500; color: #9aa29c; padding: 0 0 8px; }
+.z-table td { padding: 8px 0; border-top: 1px solid rgb(227 226 218 / .07); }
+.z-table td:not(:first-child), .z-table th:not(:first-child) { text-align: right; }
+.z-table .hi { color: #9fc7b8; font-weight: 500; }
+
+#skills .rows--spec { margin-top: 0; }
+#experience .rows > li { padding-block: 13px; } #experience .rows > li > p { margin: 0; }
+.z-ba-card { margin-top: var(--s-7); } .z-ba-panel { --p-h: 330px; background: radial-gradient(80% 70% at 20% 0%, #2c4a41 0, transparent 70%), linear-gradient(#1d2724, #161c1a); }
+.z-ba { font-size: 14px; padding: 20px 22px; }
+.z-ba .ba { display: grid; grid-template-columns: 120px 1fr 104px; align-items: center; gap: 12px; padding: 12px 0; border-top: 1px solid rgb(227 226 218 / .07); }
+.z-ba .ba:first-of-type { border-top: 0; }
+.z-ba .bars { display: grid; gap: 4px; } .z-ba .bars i { display: block; height: 7px; width: var(--v); border-radius: 99px; background: #9fc7b8; }
+.z-ba .bars i.was { background: #4a5450; }
+.z-ba .ba b { text-align: right; font-weight: 500; color: #fff; white-space: nowrap; font-variant-numeric: tabular-nums; }
+.hero--centred .hero__lead { color: var(--ink); }
+#projects .tabs .tab[aria-selected="true"] { background: var(--action); color: var(--action-ink); border-color: var(--action); }
+.btn--secondary { background: #2b3532; }
+.close__word { padding-top: .1em; }
+#about .edu { margin-top: var(--s-9); }
+#about .edu h3 { font-size: var(--t-card); }
+#skills .marq { margin-bottom: var(--s-7); }
+@media (max-width: 1279px) { .hero__window .z-run, .hero__window .z-tags { display: none; }
+  .work .z-pane pre .ln:nth-child(n+8) { display: none; } .work .z-kv span:nth-child(n+5) { display: none; } }
+@media (max-width: 1023px) { .z-win__body { grid-template-columns: 1fr; } .z-side { display: none; } }
+@media (min-width: 640px) and (max-width: 1023px) {
+  .work .card { grid-column: 1 / -1; display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); grid-auto-rows: min-content; column-gap: var(--s-6); align-content: start; }
+  .work .card > :not(.panel) { grid-column: 1; }
+  .work .card > .panel { grid-column: 2; grid-row: 1 / span 4; --p-h: 200px; margin-top: 0; }
+  #projects .frame--split { --ratio: 62%; }
+  #skills .marq { margin-bottom: var(--s-6); }
+  .work .z-pane pre .ln:nth-child(n+4) { display: none; } .work .z-kv span:nth-child(n+3) { display: none; }
+  .work .card > .panel { --p-h: 200px; }
+  #skills .rows.span-6 { grid-column: 1 / 7; } #skills .rows.start-7 { grid-column: 7 / 13; }
+  #experience { --h: 2; }
+}
+@media (max-width: 639px) {
+  .work .panel { --p-h: 260px; }
+  .work .z-pane pre .ln:nth-child(n+6) { display: none; } .work .z-kv span:nth-child(n+4) { display: none; }
+  #projects .frame--split { --ratio: 190%; }
+  #about .edu .stack-2 > p:last-child { display: none; }
+  .closing__links .footer__col:nth-child(3), .closing__links .footer__col:nth-child(5) { display: none; }
+  .hero__window .z-cell { white-space: pre-wrap; }
+  .pill .muted { display: none; } .z-win__bar .z-sub { display: none; }
+  .work, #projects, #experience, #skills { --hm: 2; }
+  #projects .tab-copy { min-height: 210px; }
+   #projects .stage > [role="tabpanel"] { left: 16px; right: 16px; top: 16px; }
+  #projects .z-pane { font-size: 13px; padding: 14px; } #projects .z-table td { font-size: 13px; }
+}
+</style>
+</head>
+<body>
+<!-- type: software (a data and ML engineer's portfolio: the work on show is software, models and pipelines)
+     deal: hero centred, nav nav-mega, close close-word, footer footer-dark, rhythm space, buttons tonal, mark dots, ground sky
+     palette green-black-bone: a near-black ground with a muted green accent reads as a terminal and a notebook, the rooms this work happens in
+     moments: marquee-row (the tools row in #skills), liquid-type (the statement in #about) -->
+
+<header class="nav">
+  <div class="wrap nav__bar">
+    <a class="skip-link" href="#top">Skip to content</a>
+    <a class="nav__logo" href="#top"><span class="mark" data-mark="dots" aria-hidden="true"></span>Zakir Siddiqui</a>
+    <nav class="nav__links" aria-label="Main">
+      <div class="nav__item">
+        <a class="nav__link" href="#work">Work <svg class="chev" viewBox="0 0 12 12" aria-hidden="true"><path d="M3 4.5l3 3 3-3" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        <div class="nav__menu">
+          <div class="wrap grid">
+            <div class="menu-col span-3">
+              <p class="t-label">On this page</p>
+              <a href="#work">Data analysis and science<span>Reports, models, AI rating</span></a>
+              <a href="#engineering">ML, backend and web<span>PyTorch, pipelines, front ends</span></a>
+              <a href="#projects">Six projects<span>Each with its test results</span></a>
+              <a href="#experience">Eight roles<span>Finance, healthcare, infrastructure</span></a>
+            </div>
+            <div class="menu-col span-3">
+              <p class="t-label">Code on GitHub</p>
+              <a href="https://github.com/zzzzzzzzak/customer-churn-retention-analysis">customer-churn<span>Cost-tuned churn model</span></a>
+              <a href="https://github.com/zzzzzzzzak/quant-ops-engine">quant-ops-engine<span>INT4 and INT8 quantization</span></a>
+              <a href="https://github.com/zzzzzzzzak/oss-contributor-radar">oss-contributor-radar<span>A daily GitHub Actions scan</span></a>
+            </div>
+            <a class="menu-card span-3 start-10" href="#projects">
+              <div class="panel"><div class="z-pane" data-ui="" style="margin:16px"><h4>churn model · test set</h4><div class="z-kv"><span>Churners caught<b class="up">82.1%</b></span><span>ROC-AUC<b>0.848</b></span></div></div></div>
+              <span class="t-card">6 projects with their test results</span>
+              <span class="t-small muted">Code and numbers on GitHub</span>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="nav__item"><a class="nav__link" href="#projects">Projects</a></div>
+      <div class="nav__item"><a class="nav__link" href="#experience">Roles</a></div>
+      <div class="nav__item"><a class="nav__link" href="#skills">Skills</a></div>
+    </nav>
+    <div class="nav__actions">
+      <a class="nav__link" href="https://github.com/zzzzzzzzak">GitHub</a>
+      <a class="btn btn--primary" href="mailto:zak.siddiqui16@gmail.com?subject=Hello%20Zakir">Email Zakir</a>
+    </div>
+    <button class="nav__toggle" type="button" aria-expanded="false" aria-label="Menu">
+      <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><path d="M2 5h14M2 13h14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+    </button>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero hero--centred" data-enter aria-labelledby="hero-h">
+    <div class="wrap"><div class="hero-text">
+      <div class="hero__c">
+        <a class="pill" href="#experience"><span>Open to remote roles</span><span class="muted">6 years in data</span></a>
+        <h1 id="hero-h">Zakir Siddiqui, data and ML engineer</h1>
+        <p class="hero__lead">I build Python and SQL pipelines, predictive models and Power BI dashboards. At Deccan Holdings they handled 4.5M records a day and cut a 6-hour report to 45 minutes.</p>
+        <div class="btn-row"><a class="btn btn--primary" href="mailto:zak.siddiqui16@gmail.com?subject=Hello%20Zakir">Email Zakir</a><a class="btn btn--secondary" href="#projects">See the projects</a></div>
+      </div>
+      <div class="hero__window" data-fx="aurora-curtains" data-fx-seed="11" role="group" aria-label="A notebook querying 7,043 customer records and showing churn by contract type">
+        <div class="ly-piece z-win" data-ui="">
+          <div class="z-win__bar" aria-hidden="true"><span class="z-win__dots"><i></i><i></i><i></i></span><span><b>churn_analysis.ipynb</b><span class="z-sub"> · 7,043 customers</span></span><span class="sp"></span><span>Python · SQLite · scikit-learn</span></div>
+          <div class="z-win__body">
+            <div class="z-side" aria-hidden="true">
+              <div class="q">zzzzzzzzak / repositories</div>
+              <div class="r is-on"><b>customer-churn</b><time>Python</time><span>Churn model, 0.38 cutoff</span></div>
+              <div class="r"><b>equity-forecasting</b><time>SQLite</time><span>120 tickers, 10 windows</span></div>
+              <div class="r"><b>sales-bi-analytics</b><time>DAX</time><span>12 KPIs, 5 dimensions</span></div>
+            </div>
+            <div class="z-nb">
+              <div class="z-cell" data-ly-steps="900" aria-hidden="true"><span class="k">SELECT</span> contract, <span class="k">AVG</span>(churned)
+<span class="k">FROM</span> customers <span class="k">GROUP BY</span> 1;</div>
+              <div data-ly-steps="900" style="display:grid;gap:10px" aria-hidden="true">
+                <div class="z-run" data-step>Ran on 7,043 rows in 0.04 s</div>
+                <div class="z-out" data-step>
+                  <div class="row"><span>Month-to-month</span><span class="bar"><i style="--v:85%"></i></span><b>42.7%</b></div>
+                  <div class="row"><span>One year</span><span class="bar"><i style="--v:23%"></i></span><b>11.3%</b></div>
+                  <div class="row"><span>Two year</span><span class="bar"><i style="--v:6%"></i></span><b>2.8%</b></div>
+                </div>
+                <div class="z-tags" data-step><span>82.1% of churners caught</span><span>$257,880 retained</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div></div>
+  </section>
+
+  <section class="section work" id="work" aria-labelledby="work-h">
+    <div class="wrap">
+      <div class="section-head">
+        <h2 id="work-h">Data analysis and data science. <span class="muted">Reports, models and AI evaluation.</span></h2>
+        <p><a class="link" href="https://github.com/zzzzzzzzak?tab=repositories">See the code</a></p>
+      </div>
+      <div class="grid">
+        <article class="card card--row card--open span-4">
+            <h3>SQL reports and Power BI dashboards</h3>
+            <p>SQL with CTEs and window functions, Power BI and DAX. Three dashboard suites for 8 fund managers.</p>
+            <div class="panel" aria-hidden="true"><div class="stage stage--fade-b"><div class="at-rise fit" style="--ax:24px;--ay:28px;--ay-sm:20px"><div class="z-pane" data-ui=""><h4>rolling_3m.sql</h4><pre><span class="ln"><span class="k">SELECT</span> year_month,</span><span class="ln">  <span class="k">SUM</span>(net_revenue) <span class="k">AS</span> rev,</span><span class="ln">  <span class="k">AVG</span>(<span class="k">SUM</span>(net_revenue)) <span class="k">OVER</span> (</span><span class="ln">    <span class="k">ORDER BY</span> year_month</span><span class="ln">    <span class="k">ROWS BETWEEN</span> 2 <span class="k">PRECEDING</span></span><span class="ln">    <span class="k">AND CURRENT ROW</span>) <span class="k">AS</span> r3m</span><span class="ln"><span class="k">FROM</span> fact_sales</span><span class="ln"><span class="k">GROUP BY</span> year_month</span><span class="ln"><span class="k">ORDER BY</span> year_month;</span></pre></div></div></div></div>
+          </article>
+        <article class="card card--row card--open span-4">
+            <h3>Predictive models</h3>
+            <p>Classification, regression, time series and NLP, tuned to the cost of a wrong call.</p>
+            <div class="panel" aria-hidden="true"><div class="stage stage--fade-b"><div class="at-rise fit" style="--ax:24px;--ay:28px;--ay-sm:20px"><div class="z-pane" data-ui=""><h4>walk-forward backtest</h4><div class="z-kv"><span>Tickers<b>120</b></span><span>Walk-forward windows<b>10</b></span><span>Training lookback<b>252 days</b></span><span>Out-of-sample window<b>21 days</b></span><span>Model Sharpe, window 9<b class="up">3.10</b></span><span>Benchmark Sharpe, window 9<b>2.40</b></span></div></div></div></div></div>
+          </article>
+        <article class="card card--row card--open span-4">
+          <h3>AI output rating in two languages</h3>
+          <p>Hindi and English audio, TTS and LLM answers rated against rubrics, with a written reason for each.</p>
+          <div class="panel" aria-hidden="true"><div class="stage stage--fade-b"><div class="at-rise fit" style="--ax:24px;--ay:28px;--ay-sm:20px"><div class="z-pane" data-ui=""><h4>verified skills</h4><div class="z-kv"><span>Outlier verified<b>Python, Git, Hindi</b></span><span>micro1 rating<b>Senior annotation</b></span><span>Hindi<b class="up">Native, C2</b></span><span>English<b>C1</b></span><span>Urdu and Marathi<b>Fluent</b></span><span>Frames quality-checked<b>450,000+</b></span></div></div></div></div></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section work" id="engineering" aria-labelledby="engineering-h">
+    <div class="wrap">
+      <div class="section-head">
+        <h2 id="engineering-h">ML, backend and web engineering. <span class="muted">From PyTorch layers to this page.</span></h2>
+      </div>
+      <div class="grid">
+        <article class="card card--row card--open span-4">
+            <h3>ML systems in PyTorch</h3>
+            <p>INT4 and INT8 quantization, video moment search and a two-stream deepfake detector.</p>
+            <div class="panel" aria-hidden="true"><div class="stage stage--fade-b"><div class="at-rise fit" style="--ax:24px;--ay:28px;--ay-sm:20px"><div class="z-pane" data-ui=""><h4>quant-ops-engine · 12.86M params</h4><div class="z-kv"><span>FP32 weights<b>49.06 MB</b></span><span>INT8 per channel<b>12.38 MB</b></span><span>INT4, group 128<b class="up">6.56 MB</b></span><span>Compression<b class="up">7.47x</b></span><span>Output cosine similarity<b>0.9973</b></span><span>FP16 softmax overflow test<b class="up">Pass</b></span></div></div></div></div></div>
+          </article>
+        <article class="card card--row card--open span-4">
+          <h3>Backend pipelines and CI</h3>
+          <p>Scheduled Python jobs that ingest, validate and publish, with tests and CI on every repository.</p>
+          <div class="panel" aria-hidden="true"><div class="stage stage--fade-b"><div class="at-rise fit" style="--ax:24px;--ay:28px;--ay-sm:20px"><div class="z-pane" data-ui=""><h4>.github/workflows/daily_scan.yml</h4><pre><span class="ln"><span class="k">on</span>:</span><span class="ln">  <span class="k">schedule</span>:</span><span class="ln">    - <span class="k">cron</span>: <span class="s">"0 8 * * *"</span></span><span class="ln"><span class="k">jobs</span>:</span><span class="ln">  <span class="k">scan</span>:</span><span class="ln">    <span class="k">runs-on</span>: ubuntu-latest</span><span class="ln">    <span class="k">steps</span>:</span><span class="ln">      - <span class="k">run</span>: pip install -e .</span><span class="ln">      - <span class="k">run</span>: python daily_scan.py</span></pre></div></div></div></div>
+        </article>
+        <article class="card card--row card--open span-4">
+          <h3>Web front ends and Streamlit apps</h3>
+          <p>HTML, CSS and React for pages like this one, and Streamlit apps on top of each model.</p>
+          <div class="panel" aria-hidden="true"><div class="stage stage--fade-b"><div class="at-rise fit" style="--ax:24px;--ay:28px;--ay-sm:20px"><div class="z-pane" data-ui=""><h4>app.py</h4><pre><span class="ln"><span class="k">import</span> streamlit <span class="k">as</span> st</span><span class="ln"><span class="k">from</span> model <span class="k">import</span> score</span><span class="ln"> </span><span class="ln">cut = st.slider(<span class="s">"Cutoff"</span>)</span><span class="ln">res = score(cutoff=cut)</span><span class="ln"> </span><span class="ln">st.metric(<span class="s">"Recall"</span>, res.r)</span><span class="ln">st.metric(<span class="s">"Net"</span>, res.net)</span><span class="ln">st.dataframe(res.at_risk)</span></pre></div></div></div></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="projects" aria-labelledby="projects-h">
+    <div class="wrap">
+      <div class="grid grid--top">
+        <div class="span-5">
+          <div class="section-head">
+            <h2 id="projects-h">6 projects with their test results</h2>
+            <p>Each one is on GitHub with tests, CI and the numbers below.</p>
+          </div>
+          <div class="tabs" role="tablist" aria-label="Projects">
+            <button class="tab" role="tab" id="t-1" type="button" aria-selected="true" aria-controls="p-1 s-1" tabindex="0">Predict churn</button>
+            <button class="tab" role="tab" id="t-2" type="button" aria-selected="false" aria-controls="p-2 s-2" tabindex="-1">Forecast equities</button>
+            <button class="tab" role="tab" id="t-3" type="button" aria-selected="false" aria-controls="p-3 s-3" tabindex="-1">Model sales data</button>
+            <button class="tab" role="tab" id="t-4" type="button" aria-selected="false" aria-controls="p-4 s-4" tabindex="-1">Evaluate LLM agents</button>
+            <button class="tab" role="tab" id="t-5" type="button" aria-selected="false" aria-controls="p-5 s-5" tabindex="-1">Search video moments</button>
+            <button class="tab" role="tab" id="t-6" type="button" aria-selected="false" aria-controls="p-6 s-6" tabindex="-1">Detect fake faces</button>
+          </div>
+          <div class="tab-copy">
+            <div role="tabpanel" id="p-1" aria-labelledby="t-1"><p>A churn model on 7,043 telecom customers. Moving the cutoff from 0.50 to 0.38 catches 307 of 374 churners in the test set.</p><a class="link" href="https://github.com/zzzzzzzzak/customer-churn-retention-analysis">See the churn code</a></div>
+            <div role="tabpanel" id="p-2" aria-labelledby="t-2" hidden><p>A forecasting pipeline for 120 tickers in a SQLite and Parquet store, with checks for splits, bad ticks and gaps. The morning report runs in under 45 seconds.</p><a class="link" href="https://github.com/zzzzzzzzak/equity-forecasting-pipeline">See the forecasting code</a></div>
+            <div role="tabpanel" id="p-3" aria-labelledby="t-3" hidden><p>A star schema with 40,000 sales facts, 12 KPIs in SQL and DAX, and drill-down by time, region, product, segment and channel.</p><a class="link" href="https://github.com/zzzzzzzzak/enterprise-sales-bi-analytics">See the BI code</a></div>
+            <div role="tabpanel" id="p-4" aria-labelledby="t-4" hidden><p>A 60-task benchmark for LLM agents with bootstrap intervals, permutation and McNemar tests, and a CI gate that blocks a weaker release.</p><a class="link" href="https://github.com/zzzzzzzzak/llm-agent-eval-harness">See the eval harness</a></div>
+            <div role="tabpanel" id="p-5" aria-labelledby="t-5" hidden><p>Finds the moment in a video that matches a sentence: shot cuts, a 512-dimension dual encoder and a cross-attention re-ranker.</p><a class="link" href="https://github.com/zzzzzzzzak/multimodal-temporal-video-rag">See the video search code</a></div>
+            <div role="tabpanel" id="p-6" aria-labelledby="t-6" hidden><p>Spots AI-made faces by pairing an SE-ResNet image stream with the 2D FFT power spectrum, which generators get wrong.</p><a class="link" href="https://github.com/zzzzzzzzak/spatial-frequency-deepfake-detector">See the detector code</a></div>
+          </div>
+        </div>
+        <div class="frame frame--split span-6 start-7">
+          <div class="stage" aria-hidden="true">
+            <div id="s-1" role="tabpanel" aria-labelledby="t-1"><div class="z-pane" data-ui=""><h4>customer-churn · test set, 374 churners</h4>
+              <table class="z-table"><tr><th>Model</th><th>Recall</th><th>F1</th><th>Net benefit</th></tr>
+              <tr><td>Logistic baseline</td><td>78.1%</td><td>0.801</td><td>$182,400</td></tr>
+              <tr><td>Ensemble at 0.50</td><td>72.2%</td><td>0.844</td><td>$234,720</td></tr>
+              <tr><td class="hi">Ensemble at 0.38</td><td class="hi">82.1%</td><td>0.796</td><td class="hi">$257,880</td></tr></table></div></div>
+            <div id="s-2" role="tabpanel" aria-labelledby="t-2" hidden><div class="z-pane" data-ui=""><h4>equity-forecasting · model Sharpe by window</h4>
+              <svg class="z-spark" viewBox="0 0 300 64" preserveAspectRatio="none"><polyline fill="none" stroke="#9fc7b8" stroke-width="2" points="0,28 33,40 66,18 100,36 133,52 166,30 200,24 233,42 266,8 300,22"/><polyline fill="none" stroke="#5d6762" stroke-width="2" stroke-dasharray="4 4" points="0,38 33,46 66,32 100,44 133,58 166,40 200,36 233,52 266,30 300,38"/></svg>
+              <div class="z-kv" style="margin-top:12px"><span>Model RMSE vs benchmark<b class="up">-0.6% to -0.8%</b></span><span>Tickers<b>120</b></span><span>Report runtime<b class="up">under 45 s</b></span></div></div></div>
+            <div id="s-3" role="tabpanel" aria-labelledby="t-3" hidden><div class="z-pane" data-ui=""><h4>sales_dw.db · 02_kpi_queries.sql</h4><pre><span class="k">SELECT</span> customer_id, spend,
+  <span class="k">NTILE</span>(10) <span class="k">OVER</span> (<span class="k">ORDER BY</span> spend <span class="k">DESC</span>) <span class="k">AS</span> decile
+<span class="k">FROM</span> customer_spend;  <span class="c">-- Pareto 80/20 check</span></pre>
+              <div class="z-kv" style="margin-top:14px"><span>Fact rows<b>40,000+</b></span><span>KPIs in SQL and DAX<b>12</b></span><span>Drill-down dimensions<b>5</b></span></div></div></div>
+            <div id="s-4" role="tabpanel" aria-labelledby="t-4" hidden><div class="z-pane" data-ui=""><h4>eval_cli.py · candidate_v2 vs baseline_v1</h4>
+              <table class="z-table"><tr><th>Metric</th><th>Baseline</th><th>Candidate</th></tr>
+              <tr><td>Pass rate</td><td>80.0%</td><td class="hi">95.0%</td></tr>
+              <tr><td>Mean score</td><td>0.867</td><td class="hi">0.973</td></tr>
+              <tr><td>p95 latency</td><td>680 ms</td><td class="hi">578 ms</td></tr>
+              <tr><td>McNemar exact p</td><td></td><td>0.0039</td></tr></table>
+              <div class="z-tags" style="margin-top:12px"><span>Gate: PASS, exit 0</span></div></div></div>
+            <div id="s-5" role="tabpanel" aria-labelledby="t-5" hidden><div class="z-pane" data-ui=""><h4>video-rag · temporal grounding benchmark</h4><div class="z-kv"><span>Recall@3, tIoU 0.5<b class="up">75.0%</b></span><span>Recall@1, tIoU 0.5<b>50.0%</b></span><span>Query latency, p50 on CPU<b>26 ms</b></span><span>Query latency, p95 on CPU<b>31 ms</b></span></div></div></div>
+            <div id="s-6" role="tabpanel" aria-labelledby="t-6" hidden><div class="z-pane" data-ui=""><h4>deepfake-detector · held-out set</h4><div class="z-kv"><span>ROC-AUC<b class="up">0.954</b></span><span>Equal error rate<b>10.0%</b></span><span>Precision<b>1.000</b></span><span>Latency, p50 on CPU<b>19 ms</b></span></div></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="experience" aria-labelledby="experience-h">
+    <div class="wrap">
+      <div class="grid grid--top">
+        <div class="span-5">
+          <div class="section-head">
+            <h2 id="experience-h">Eight roles since 2017</h2>
+            <p>Finance, healthcare, infrastructure and AI training. Four of the numbers they moved:</p>
+          </div>
+          <div class="card card--open z-ba-card"><div class="panel z-ba-panel" role="img" aria-label="Before and after: SLA compliance 81% to 94.5%, dataset rework 4.8% to 1.2%, morning report 6 hours to 45 minutes, approval cycle 5 days to 1.5 days"><div class="stage" aria-hidden="true"><div class="at-rise fit" style="--ax:24px;--ay:24px;--ay-sm:16px"><div class="z-pane z-ba" data-ui="">
+            <h4>before → after</h4>
+            <div class="ba"><span>SLA compliance</span><span class="bars"><i class="was" style="--v:81%"></i><i style="--v:94.5%"></i></span><b>81% → 94.5%</b></div>
+            <div class="ba"><span>Dataset rework</span><span class="bars"><i class="was" style="--v:100%"></i><i style="--v:25%"></i></span><b>4.8% → 1.2%</b></div>
+            <div class="ba"><span>Morning report</span><span class="bars"><i class="was" style="--v:100%"></i><i style="--v:12.5%"></i></span><b>6 h → 45 min</b></div>
+            <div class="ba"><span>Approval cycle</span><span class="bars"><i class="was" style="--v:100%"></i><i style="--v:30%"></i></span><b>5 → 1.5 days</b></div>
+          </div></div></div></div></div>
+        </div>
+        <ul class="rows span-6 start-7">
+          <li><span class="rows__name">AI training contributor, Outlier</span><p>Hindi and English audio, TTS and agent replies.</p><span class="rows__value">2026</span></li>
+          <li><span class="rows__name">AI data specialist, micro1</span><p>Video annotation, rated senior.</p><span class="rows__value">2026 to now</span></li>
+          <li><span class="rows__name">Data analyst and ML specialist, Deccan Holdings</span><p>Pipelines for 4.5M records a day.</p><span class="rows__value">2025 to 2026</span></li>
+          <li><span class="rows__name">Healthcare data analyst, eHealth Technologies</span><p>12 US client networks, HIPAA audits.</p><span class="rows__value">2023 to 2024</span></li>
+          <li><span class="rows__name">Operations data analyst, Webonise Labs</span><p>450,000 frames checked.</p><span class="rows__value">2022 to 2023</span></li>
+          <li><span class="rows__name">BI and MIS analyst, Deccan Infrastructure</span><p>INR 38 lakh recovered from billing.</p><span class="rows__value">2019 to 2022</span></li>
+          <li><span class="rows__name">Project operations, Teemage Builders</span><p>Precast tracking, about 20% faster.</p><span class="rows__value">2018 to 2019</span></li>
+          <li><span class="rows__name">Civil engineering intern, CBRE</span><p>Site checks against BBS and drawings.</p><span class="rows__value">2017</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="about" aria-labelledby="about-h">
+    <div class="wrap">
+      <div data-moment="liquid-type" class="section-head" style="max-width:none">
+        <h2 id="about-h" class="mo-lt__type t-h1">Civil engineer turned data engineer</h2>
+        <p class="measure">A B.E. in civil engineering in 2016 and a NICMAR diploma in construction management in 2018. I still read a bill of quantities as well as a query plan, and I speak Hindi, English, Urdu and Marathi.</p>
+      </div>
+      <!-- client slot: a portrait of Zakir can go beside the education row as assets/zakir.jpg (4:5, at least 1200 px tall) -->
+      <div class="grid edu">
+        <div class="span-4 stack-2"><p class="t-label muted">MGM’s J.N.E.C.</p><h3>B.E. in civil engineering, 2016</h3><p>Jawaharlal Nehru Engineering College. Structural design, estimation and surveying.</p></div>
+        <div class="span-4 stack-2"><p class="t-label muted">NICMAR</p><h3>PG diploma in construction management, 2018</h3><p>Project scheduling in Primavera P6, BOQ, QA and QC.</p></div>
+        <div class="span-4 stack-2"><p class="t-label muted">Coding Ninjas</p><h3>Certificate in data science and analytics, 2025</h3><p>Python, SQL and machine learning.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="skills" aria-labelledby="skills-h">
+    <div class="wrap">
+      <div class="section-head">
+        <h2 id="skills-h">Skill levels across 14 tools</h2>
+      </div>
+      <div class="marq">
+        <div data-moment="marquee-row" data-moment-opts='{"speed": 32}'>
+          <ul class="mo-mq__track"><li>Python</li><li>SQL</li><li>Pandas</li><li>scikit-learn</li><li>PyTorch</li><li>XGBoost</li><li>spaCy</li><li>Power BI</li><li>DAX</li><li>Streamlit</li><li>Flask</li><li>GitHub Actions</li><li>AutoCAD</li><li>Primavera P6</li></ul>
+        </div>
+      </div>
+      <div class="grid grid--top">
+        <ul class="rows rows--spec span-6">
+          <li><span class="rows__name">Python</span><span class="rows__value">Advanced</span></li>
+          <li><span class="rows__name">SQL</span><span class="rows__value">Advanced</span></li>
+          <li><span class="rows__name">Machine learning</span><span class="rows__value">Advanced</span></li>
+          <li><span class="rows__name">Power BI and Excel</span><span class="rows__value">Advanced</span></li>
+          <li><span class="rows__name">Git and GitHub</span><span class="rows__value">Intermediate</span></li>
+          <li><span class="rows__name">HTML and CSS</span><span class="rows__value">Intermediate</span></li>
+          <li><span class="rows__name">React</span><span class="rows__value">Beginner</span></li>
+        </ul>
+        <ul class="rows rows--spec span-6 start-7">
+          <li><span class="rows__name">Java</span><span class="rows__value">Beginner</span></li>
+          <li><span class="rows__name">AI rating and annotation</span><span class="rows__value">Advanced</span></li>
+          <li><span class="rows__name">AutoCAD, STAAD Pro, ETABS, Revit</span><span class="rows__value">Advanced</span></li>
+          <li><span class="rows__name">Primavera P6 and MS Project</span><span class="rows__value">Advanced</span></li>
+          <li><span class="rows__name">Hindi</span><span class="rows__value">Native</span></li>
+          <li><span class="rows__name">English</span><span class="rows__value">C1</span></li>
+          <li><span class="rows__name">Urdu and Marathi</span><span class="rows__value">Fluent</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer closing footer--dark ground-inverse" id="contact" aria-labelledby="close-h">
+  <div class="wrap">
+    <div class="closing__cta close--word">
+      <div class="section-head--split">
+        <div><h2 id="close-h">Hire Zakir for data and ML work</h2><p class="t-lead">Open to remote analyst, data scientist and ML engineer roles, and to contract projects.</p></div>
+        <a class="btn btn--primary" href="mailto:zak.siddiqui16@gmail.com?subject=Hello%20Zakir">Email Zakir<svg class="m-arrow" viewBox="0 0 12 12" aria-hidden="true"><path class="m-arrow__stem" d="M1 6h8"/><path class="m-arrow__head" d="M4.5 2.5 8 6l-3.5 3.5"/></svg></a>
+      </div>
+      <p class="close__word" aria-hidden="true">Siddiqui</p>
+    </div>
+    <div class="closing__links">
+      <div class="grid">
+        <div class="span-4 stack-4">
+          <a class="nav__logo" href="#top"><span class="mark" data-mark="dots" aria-hidden="true"></span>Zakir Siddiqui</a>
+          <p class="footer__lede">Data analyst and ML engineer in Maharashtra, India, working remotely.</p>
+        </div>
+        <div class="span-2 footer__col"><h3>Work</h3><ul><li><a href="#work">Data work</a></li><li><a href="#engineering">Engineering</a></li><li><a href="#projects">Projects</a></li></ul></div>
+        <div class="span-2 footer__col"><h3>About</h3><ul><li><a href="#experience">Experience</a></li><li><a href="#skills">Skills</a></li></ul></div>
+        <div class="span-2 footer__col"><h3>Profiles</h3><ul><li><a href="https://github.com/zzzzzzzzak">GitHub</a></li><li><a href="https://www.linkedin.com/in/zakir-siddiqui-ml-data-analyst">LinkedIn</a></li></ul></div>
+        <div class="span-2 footer__col"><h3>Code</h3><ul><li><a href="https://github.com/zzzzzzzzak/llm-agent-eval-harness">Eval harness</a></li><li><a href="https://github.com/zzzzzzzzak/quant-ops-engine">Quantization</a></li></ul></div>
+      </div>
+      <div class="footer__legal">
+        <span>&copy; 2026 Zakir Siddiqui</span>
+        <div class="socials"></div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script type="module" src="assets/system.js"></script>
+<script type="module" src="assets/motion/motion.js"></script>
+<script type="module" src="assets/layout/layout.js"></script>
+</body>
+</html>
