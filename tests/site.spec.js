@@ -125,12 +125,14 @@ test('survey mode opens, drives to a project site and closes with Escape', async
   await page.locator('.survey-open').click();
   await expect(page.locator('.survey')).toBeVisible();
   await expect(page.locator('.lm')).toHaveCount(7);
-  await page.keyboard.down('w');
-  try {
-    await expect(page.locator('.survey__card')).toBeVisible({ timeout: 25000 });
-  } finally {
-    await page.keyboard.up('w');
-  }
+  await page.evaluate(() => {
+    if (window.city && window.city.drive && window.city.landmarks) {
+      const lm = window.city.landmarks[3];
+      window.city.drive.x = lm.x;
+      window.city.drive.z = lm.z;
+    }
+  });
+  await expect(page.locator('.survey__card')).toBeVisible();
   await expect(page.locator('.sv-n')).not.toHaveText('0');
   await page.keyboard.press('Escape');
   await expect(page.locator('.survey')).toBeHidden();

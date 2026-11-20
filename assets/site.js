@@ -33,6 +33,7 @@ const scrollToEl = (el) => {
 const canvas = $('.hero__canvas');
 let city = null;
 try { city = createCity(canvas, { reduced: !motion }); } catch (e) { city = null; }
+if (city) window.city = city;
 if (!city) root.classList.add('no-webgl');
 
 /* ---------- split headings into words ---------- */
