@@ -127,7 +127,7 @@ test('survey mode opens, drives to a project site and closes with Escape', async
   await expect(page.locator('.lm')).toHaveCount(7);
   await page.keyboard.down('w');
   try {
-    await expect(page.locator('.survey__card')).toBeVisible({ timeout: 12000 });
+    await expect(page.locator('.survey__card')).toBeVisible({ timeout: 25000 });
   } finally {
     await page.keyboard.up('w');
   }

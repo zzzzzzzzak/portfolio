@@ -6,7 +6,7 @@ const { defineConfig, devices } = require('@playwright/test');
 const channel = process.env.CI ? undefined : 'msedge';
 
 module.exports = defineConfig({
-  workers: 3,   // each test runs a WebGL scene; more in parallel starves the GPU and makes timings flaky
+  workers: process.env.CI ? 1 : 3,   // on CI, single worker avoids software WebGL CPU starvation
   testDir: './tests',
   timeout: 60_000,
   fullyParallel: true,
