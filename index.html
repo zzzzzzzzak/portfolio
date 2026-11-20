@@ -1,0 +1,654 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Zakir Siddiqui, data scientist and ML engineer</title>
+  <meta name="description" content="Zakir Siddiqui: civil engineer turned data scientist. Python and SQL pipelines, predictive models, agentic AI with LLMs, ML systems in PyTorch, backend jobs and web front ends.">
+  <meta name="theme-color" content="#05070a">
+  <meta property="og:title" content="Zakir Siddiqui, data scientist and ML engineer">
+  <meta property="og:description" content="From blueprints to models: data analysis, data science, ML, backend and web work, with the real numbers.">
+  <meta property="og:image" content="share.jpg">
+  <meta property="og:type" content="website">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,300..800;1,300..600&family=JetBrains+Mono:wght@400;500&display=swap">
+  <link rel="stylesheet" href="assets/site.css">
+  <script type="importmap">{ "imports": { "three": "./assets/vendor/three.module.min.js", "three/addons/": "./assets/vendor/jsm/" } }</script>
+  <script>document.documentElement.classList.add('js');</script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <div class="loader" aria-hidden="true">
+    <div class="loader__grid"></div>
+    <div class="loader__inner">
+      <div class="loader__label">compiling blueprint <span class="arrow">→</span> model</div>
+      <div class="loader__count"><span class="loader__num">0</span><span class="loader__pct">%</span></div>
+      <div class="loader__bar"><i></i></div>
+    </div>
+  </div>
+
+  <div class="cursor" aria-hidden="true"><i class="cursor__dot"></i><i class="cursor__ring"><span class="cursor__label"></span></i></div>
+  <div class="grain" aria-hidden="true"></div>
+  <div class="progress" aria-hidden="true"><i></i></div>
+
+  <header class="nav">
+    <a class="nav__brand" href="#top" aria-label="Zakir Siddiqui, back to top">
+      <svg viewBox="0 0 32 32" width="30" height="30" aria-hidden="true"><path d="M4 26 16 6l12 20z" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M10 26v-7h12v7" fill="none" stroke="currentColor" stroke-width="1.6"/><rect x="12" y="13" width="3" height="3" fill="var(--accent)"/><rect x="17" y="10" width="3" height="6" fill="var(--accent)"/></svg>
+      <span>Zakir Siddiqui</span>
+    </a>
+    <nav class="nav__links" aria-label="Sections">
+      <a href="#story">Story</a>
+      <a href="#work">Work</a>
+      <a href="#lab">Lab</a>
+      <a href="#agents">Agents</a>
+      <a href="#projects">Projects</a>
+      <a href="#experience">Experience</a>
+      <a href="#skills">Skills</a>
+      <a href="#query">Terminal</a>
+    </nav>
+    <a class="btn btn--primary btn--sm magnetic" href="mailto:zak.siddiqui16@gmail.com">Email Zakir</a>
+    <button class="nav__menu-btn" type="button" aria-expanded="false" aria-controls="menu"><span></span><span></span><span class="sr-only">Menu</span></button>
+  </header>
+  <div class="menu" id="menu" hidden>
+    <nav aria-label="Menu">
+      <a href="#story">Story</a>
+      <a href="#work">Work</a>
+      <a href="#lab">Lab</a>
+      <a href="#agents">Agents</a>
+      <a href="#projects">Projects</a>
+      <a href="#experience">Experience</a>
+      <a href="#skills">Skills</a>
+      <a href="#query">Terminal</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+
+  <main id="main">
+    <!-- 1. HERO: a live 3D city that compiles into a data model on scroll -->
+    <section class="hero" id="top" aria-labelledby="hero-h">
+      <canvas class="hero__canvas" aria-hidden="true"></canvas>
+      <div class="hero__fallback" aria-hidden="true"></div>
+      <div class="hero__shade" aria-hidden="true"></div>
+
+      <div class="hero__inner wrap">
+        <p class="eyebrow hero__eyebrow"><span class="pulse"></span>Open to remote roles · 6 years in data</p>
+        <h1 class="hero__title" id="hero-h">
+          <span class="line"><span class="line__in">Zakir</span></span>
+          <span class="line"><span class="line__in line__in--outline">Siddiqui</span></span>
+        </h1>
+        <div class="hero__bottom">
+          <p class="hero__role">
+            <span class="hero__role-k">I work as a</span>
+            <span class="rotator" aria-live="off"><span class="rotator__list">
+              <span>data scientist</span><span>ML engineer</span><span>data analyst</span><span>backend developer</span><span>agentic AI engineer</span><span>civil engineer</span>
+            </span></span>
+          </p>
+          <p class="hero__lead">I build Python and SQL pipelines, predictive models and Power BI dashboards. At Deccan Holdings they handled <strong>4.5M records a day</strong> and cut a 6-hour report to <strong>45 minutes</strong>.</p>
+          <div class="hero__cta">
+            <a class="btn btn--primary magnetic" href="mailto:zak.siddiqui16@gmail.com">Email Zakir</a>
+            <a class="btn btn--ghost magnetic" href="#projects">See the projects</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="hud hud--tl" aria-hidden="true">
+        <span>render / city.model</span>
+        <span>instances <b class="hud__n">576</b></span>
+        <span>mode <b class="hud__mode">blueprint</b></span>
+      </div>
+      <div class="hud hud--br" aria-hidden="true">
+        <span class="hud__morph">morph 0.00</span>
+        <span>scroll to compile ↓</span>
+      </div>
+
+      <div class="hero__ctrl">
+        <div class="seg seg--sm" role="group" aria-label="3D view">
+          <button type="button" class="seg__b" data-view="0" aria-pressed="true">City</button>
+          <button type="button" class="seg__b" data-view="1" aria-pressed="false">Data model</button>
+        </div>
+        <p class="hero__hint" aria-hidden="true"><span class="hint-fine">drag to orbit · </span>click a building</p>
+        <button type="button" class="btn btn--survey btn--sm survey-open"><svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M8 1 2 15l6-3 6 3z" fill="currentColor"/></svg>Explore the city</button>
+      </div>
+      <div class="survey" role="region" aria-label="Survey mode" hidden>
+        <div class="survey__top">
+          <p class="survey__title">Survey mode <span>· find the 7 project sites</span></p>
+          <p class="survey__count"><b class="sv-n">0</b> / 7 surveyed</p>
+          <button type="button" class="survey__exit">Exit <kbd>Esc</kbd></button>
+        </div>
+        <div class="survey__labels" aria-hidden="true"></div>
+        <p class="survey__keys" aria-hidden="true"><kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> or arrow keys to drive · beacons mark the projects</p>
+        <p class="survey__clock" aria-hidden="true"></p>
+        <div class="joy" aria-hidden="true"><i></i></div>
+        <aside class="survey__card" aria-live="polite" hidden></aside>
+        <div class="survey__done" hidden><b>All 7 sites surveyed.</b> You have seen every project. <a href="mailto:zak.siddiqui16@gmail.com">Email Zakir</a></div>
+      </div>
+      <div class="hero__tip" aria-hidden="true" hidden></div>
+
+      <div class="hero__caption wrap" aria-hidden="true">
+        <p class="hero__caption-a">I used to design <em>buildings</em>.</p>
+        <p class="hero__caption-b">Now I design <em>models</em>.</p>
+      </div>
+    </section>
+
+    <!-- 2. NUMBERS -->
+    <section class="stats" aria-labelledby="stats-h">
+      <div class="wrap">
+        <h2 class="sr-only" id="stats-h">Results in numbers</h2>
+        <ul class="stats__grid">
+          <li><span class="stat__v"><span data-count="4.5" data-dec="1">4.5</span>M</span><span class="stat__k">records a day through my pipelines</span></li>
+          <li><span class="stat__v">6h<span class="stat__arrow">→</span><span data-count="45">45</span>m</span><span class="stat__k">morning report, before and after</span></li>
+          <li><span class="stat__v"><span data-count="82.1" data-dec="1">82.1</span>%</span><span class="stat__k">of churners caught by the churn model</span></li>
+          <li><span class="stat__v"><span data-count="7.47" data-dec="2">7.47</span>×</span><span class="stat__k">smaller PyTorch model, 0.9973 cosine</span></li>
+          <li><span class="stat__v"><span data-count="450">450</span>K+</span><span class="stat__k">video frames quality-checked</span></li>
+          <li><span class="stat__v">₹<span data-count="38">38</span>L</span><span class="stat__k">recovered from infrastructure billing</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 3. STORY: the blueprint house draws itself, then becomes data -->
+    <section class="story" id="story" aria-labelledby="story-h">
+      <div class="story__pin">
+        <div class="story__bg" aria-hidden="true"></div>
+        <div class="wrap story__grid">
+          <div class="story__text">
+            <p class="eyebrow">The story · 2016 → now</p>
+            <h2 class="h2" id="story-h" data-split>Civil engineer turned data engineer.</h2>
+            <ol class="story__steps">
+              <li class="step is-active">
+                <span class="step__n">01 · 2016</span>
+                <h3>B.E. in civil engineering</h3>
+                <p>Jawaharlal Nehru Engineering College (MGM). Structural design, estimation and surveying: my first models were made of concrete.</p>
+              </li>
+              <li class="step">
+                <span class="step__n">02 · 2017 → 2019</span>
+                <h3>On site, with the drawings</h3>
+                <p>Intern at CBRE, checking sites against bar bending schedules and drawings. At Teemage Builders I made precast tracking about 20% faster.</p>
+              </li>
+              <li class="step">
+                <span class="step__n">03 · 2018</span>
+                <h3>NICMAR, construction management</h3>
+                <p>A PG diploma: scheduling in Primavera P6, bills of quantities, QA and QC. I still read a BOQ as well as a query plan.</p>
+              </li>
+              <li class="step">
+                <span class="step__n">04 · 2019 → now</span>
+                <h3>The building became data</h3>
+                <p>BI and MIS at Deccan Infrastructure recovered INR 38 lakh from billing. Then healthcare, finance and AI: pipelines, models and dashboards.</p>
+              </li>
+            </ol>
+            <div class="story__nav" role="group" aria-label="Jump to a phase of the drawing">
+              <button type="button" data-phase="0" aria-label="Phase 1, structure">01</button>
+              <button type="button" data-phase="1" aria-label="Phase 2, openings and roof">02</button>
+              <button type="button" data-phase="2" aria-label="Phase 3, grid and dimensions">03</button>
+              <button type="button" data-phase="3" aria-label="Phase 4, data model">04</button>
+            </div>
+          </div>
+
+          <figure class="story__fig" aria-hidden="true">
+            <svg class="bp" viewBox="0 0 640 520" fill="none">
+              <defs>
+                <pattern id="hatch" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="8" stroke="currentColor" stroke-width="1" opacity=".5"/></pattern>
+                <linearGradient id="barg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4cf0c8"/><stop offset="1" stop-color="#4cf0c8" stop-opacity=".15"/></linearGradient>
+              </defs>
+              <!-- phase 1: ground, footing, walls -->
+              <g class="ph ph1">
+                <line class="d" x1="20" y1="440" x2="620" y2="440"/>
+                <rect class="d" x="120" y="440" width="400" height="30"/>
+                <rect class="fill-hatch" x="120" y="440" width="400" height="30" fill="url(#hatch)"/>
+                <rect class="d" x="140" y="240" width="360" height="200"/>
+                <line class="d" x1="140" y1="340" x2="500" y2="340"/>
+                <line class="d" x1="140" y1="346" x2="500" y2="346"/>
+              </g>
+              <!-- phase 2: roof, openings -->
+              <g class="ph ph2">
+                <polyline class="d" points="112,244 320,118 528,244"/>
+                <polyline class="d" points="420,178 420,140 448,140 448,195"/>
+                <rect class="d" x="170" y="370" width="64" height="46"/><line class="d" x1="202" y1="370" x2="202" y2="416"/><line class="d" x1="170" y1="393" x2="234" y2="393"/>
+                <rect class="d" x="292" y="360" width="56" height="80"/><circle class="d" cx="338" cy="402" r="3"/>
+                <rect class="d" x="404" y="370" width="72" height="46"/><line class="d" x1="440" y1="370" x2="440" y2="416"/><line class="d" x1="404" y1="393" x2="476" y2="393"/>
+                <rect class="d" x="170" y="268" width="64" height="46"/><line class="d" x1="202" y1="268" x2="202" y2="314"/>
+                <rect class="d" x="300" y="268" width="40" height="46"/>
+                <rect class="d" x="404" y="268" width="72" height="46"/><line class="d" x1="440" y1="268" x2="440" y2="314"/>
+                <line class="d" x1="290" y1="200" x2="350" y2="200"/><circle class="d" cx="320" cy="180" r="14"/>
+              </g>
+              <!-- phase 3: dimensions, grid axes, annotations -->
+              <g class="ph ph3">
+                <line class="d dim" x1="140" y1="490" x2="500" y2="490"/>
+                <line class="d dim" x1="140" y1="482" x2="140" y2="498"/><line class="d dim" x1="500" y1="482" x2="500" y2="498"/>
+                <line class="d dim" x1="92" y1="240" x2="92" y2="440"/>
+                <line class="d dim" x1="84" y1="240" x2="100" y2="240"/><line class="d dim" x1="84" y1="440" x2="100" y2="440"/>
+                <line class="d axis" x1="140" y1="70" x2="140" y2="470"/>
+                <line class="d axis" x1="320" y1="70" x2="320" y2="470"/>
+                <line class="d axis" x1="500" y1="70" x2="500" y2="470"/>
+                <circle class="d" cx="140" cy="56" r="12"/><circle class="d" cx="320" cy="56" r="12"/><circle class="d" cx="500" cy="56" r="12"/>
+                <g class="t">
+                  <text x="140" y="60" text-anchor="middle">A</text><text x="320" y="60" text-anchor="middle">B</text><text x="500" y="60" text-anchor="middle">C</text>
+                  <text x="320" y="512" text-anchor="middle">12.00 m</text>
+                  <text x="72" y="344" text-anchor="middle" transform="rotate(-90 72 344)">6.40 m</text>
+                  <text x="536" y="122">R.L. +9.60</text>
+                  <text x="536" y="344">B1 230×450</text>
+                  <text x="536" y="364">BBS · Fe500</text>
+                  <text x="20" y="432">G.L. ±0.00</text>
+                </g>
+              </g>
+              <!-- phase 4: the house becomes a data model -->
+              <g class="ph ph4">
+                <g class="bars">
+                  <rect x="152" y="380" width="26" height="58" fill="url(#barg)"/>
+                  <rect x="186" y="352" width="26" height="86" fill="url(#barg)"/>
+                  <rect x="220" y="362" width="26" height="76" fill="url(#barg)"/>
+                  <rect x="254" y="318" width="26" height="120" fill="url(#barg)"/>
+                  <rect x="288" y="300" width="26" height="138" fill="url(#barg)"/>
+                  <rect x="322" y="326" width="26" height="112" fill="url(#barg)"/>
+                  <rect x="356" y="282" width="26" height="156" fill="url(#barg)"/>
+                  <rect x="390" y="268" width="26" height="170" fill="url(#barg)"/>
+                  <rect x="424" y="290" width="26" height="148" fill="url(#barg)"/>
+                  <rect x="458" y="252" width="26" height="186" fill="url(#barg)"/>
+                </g>
+                <polyline class="d trend" points="165,372 199,344 233,352 267,310 301,292 335,318 369,274 403,260 437,282 471,244"/>
+                <g class="nodes">
+                  <circle cx="165" cy="372" r="4"/><circle cx="267" cy="310" r="4"/><circle cx="369" cy="274" r="4"/><circle cx="471" cy="244" r="4"/>
+                </g>
+                <g class="t t--data">
+                  <text x="150" y="98">SELECT stage, SUM(progress) FROM site GROUP BY 1;</text>
+                  <text x="536" y="262">+38L recovered</text>
+                </g>
+              </g>
+            </svg>
+            <figcaption class="bp__cap"><span>DWG-01 · front elevation</span><span class="bp__phase">phase 1/4 · structure</span></figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. WHAT I DO -->
+    <section class="work" id="work" aria-labelledby="work-h">
+      <div class="wrap">
+        <div class="sec-head">
+          <p class="eyebrow">What I do · four disciplines</p>
+          <h2 class="h2" id="work-h" data-split>From raw rows to shipped systems.</h2>
+        </div>
+        <div class="cards">
+          <article class="card" data-tilt>
+            <div class="card__viz viz-analysis" aria-hidden="true">
+              <svg viewBox="0 0 320 160">
+                <g class="va-grid"><line x1="0" y1="40" x2="320" y2="40"/><line x1="0" y1="80" x2="320" y2="80"/><line x1="0" y1="120" x2="320" y2="120"/></g>
+                <g class="va-bars">
+                  <rect x="14" y="96" width="22" height="64"/><rect x="52" y="80" width="22" height="80"/><rect x="90" y="104" width="22" height="56"/><rect x="128" y="64" width="22" height="96"/><rect x="166" y="72" width="22" height="88"/><rect x="204" y="44" width="22" height="116"/><rect x="242" y="56" width="22" height="104"/><rect x="280" y="28" width="22" height="132"/>
+                </g>
+                <polyline class="va-line" points="25,90 63,78 101,88 139,62 177,60 215,44 253,42 291,26"/>
+              </svg>
+              <code class="viz-code"><b>AVG</b>(SUM(net_revenue)) <b>OVER</b> (ROWS 2 PRECEDING)</code>
+            </div>
+            <span class="card__n">01</span>
+            <h3>Data analysis</h3>
+            <p>SQL with CTEs and window functions, Power BI and DAX. Three dashboard suites for 8 fund managers.</p>
+            <ul class="tags"><li>SQL</li><li>Power BI</li><li>DAX</li><li>Excel</li></ul>
+          </article>
+
+          <article class="card" data-tilt>
+            <div class="card__viz viz-science" aria-hidden="true"><canvas class="nn"></canvas></div>
+            <span class="card__n">02</span>
+            <h3>Data science and ML</h3>
+            <p>Classification, regression, time series and NLP, tuned to the cost of a wrong call. PyTorch for quantization, video search and deepfake detection.</p>
+            <ul class="tags"><li>scikit-learn</li><li>XGBoost</li><li>PyTorch</li><li>spaCy</li></ul>
+          </article>
+
+          <article class="card" data-tilt>
+            <div class="card__viz viz-backend" aria-hidden="true">
+              <svg viewBox="0 0 320 160">
+                <path id="pipe" class="vb-pipe" d="M40 80 H120 C140 80 140 40 160 40 H200 M160 40 C140 40 140 80 120 80 M120 80 C140 80 140 120 160 120 H200 M200 40 C220 40 220 80 240 80 H280 M200 120 C220 120 220 80 240 80"/>
+                <g class="vb-nodes">
+                  <rect x="8" y="64" width="64" height="32" rx="6"/><rect x="160" y="24" width="56" height="32" rx="6"/><rect x="160" y="104" width="56" height="32" rx="6"/><rect x="248" y="64" width="64" height="32" rx="6"/>
+                </g>
+                <g class="vb-labels"><text x="40" y="84">ingest</text><text x="188" y="44">validate</text><text x="188" y="124">features</text><text x="280" y="84">publish</text></g>
+                <circle class="vb-pkt" r="3.5"><animateMotion dur="3.2s" repeatCount="indefinite" path="M40 80 H120 C140 80 140 40 160 40 H200 C220 40 220 80 240 80 H280"/></circle>
+                <circle class="vb-pkt" r="3.5"><animateMotion dur="3.2s" begin="1.1s" repeatCount="indefinite" path="M40 80 H120 C140 80 140 120 160 120 H200 C220 120 220 80 240 80 H280"/></circle>
+                <circle class="vb-pkt" r="3.5"><animateMotion dur="3.2s" begin="2.2s" repeatCount="indefinite" path="M40 80 H120 C140 80 140 40 160 40 H200 C220 40 220 80 240 80 H280"/></circle>
+              </svg>
+              <code class="viz-code">cron: <i>"0 8 * * *"</i> · runs-on: ubuntu-latest</code>
+            </div>
+            <span class="card__n">03</span>
+            <h3>Backend and pipelines</h3>
+            <p>Scheduled Python jobs that ingest, validate and publish, with tests and CI on every repository. Flask APIs, SQLite and Parquet stores.</p>
+            <ul class="tags"><li>Python</li><li>Flask</li><li>GitHub Actions</li><li>SQLite</li></ul>
+          </article>
+
+          <article class="card" data-tilt>
+            <div class="card__viz viz-web" aria-hidden="true">
+              <div class="term"><div class="term__bar"><i></i><i></i><i></i><span>app.py</span></div><pre class="term__code"></pre></div>
+            </div>
+            <span class="card__n">04</span>
+            <h3>Web development</h3>
+            <p>HTML, CSS and React for pages like this one, and Streamlit apps on top of each model so people can actually use it.</p>
+            <ul class="tags"><li>HTML and CSS</li><li>React</li><li>Streamlit</li><li>Three.js</li></ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- LAB: interactive churn model -->
+    <section class="lab" id="lab" aria-labelledby="lab-h">
+      <div class="wrap">
+        <div class="sec-head">
+          <p class="eyebrow">Lab · try it yourself</p>
+          <h2 class="h2" id="lab-h" data-split>Play with the churn model.</h2>
+        </div>
+        <div class="lab__grid">
+          <div class="panel lab__model">
+            <div class="panel__head"><span>customer-churn · test set</span><span class="live"><i></i>interactive</span></div>
+            <div class="seg seg--wrap" role="group" aria-label="Choose a model">
+              <button type="button" class="seg__b" data-model="0" aria-pressed="false">Logistic baseline</button>
+              <button type="button" class="seg__b" data-model="1" aria-pressed="false">Ensemble, cutoff 0.50</button>
+              <button type="button" class="seg__b" data-model="2" aria-pressed="true">Ensemble, cutoff 0.38</button>
+            </div>
+            <div class="dots" aria-hidden="true"></div>
+            <div class="lab__m" aria-live="polite">
+              <div><span>Churners caught</span><b><span class="m-caught">307</span><small> / 374</small></b></div>
+              <div><span>Recall</span><b class="m-recall">82.1%</b></div>
+              <div><span>F1</span><b class="m-f1">0.796</b></div>
+              <div><span>Net benefit</span><b class="m-net">$257,880</b></div>
+            </div>
+            <p class="lab__note">Each dot is one of the 374 customers who churned in the test set. Lit dots are the ones the model flagged in time. Lowering the cutoff to 0.38 trades a little precision for 37 more saved customers.</p>
+          </div>
+
+          <div class="panel lab__sql">
+            <div class="panel__head"><span>churn_by_contract.sql</span><span>7,043 customers</span></div>
+            <pre class="lab__code"><span class="k">SELECT</span> contract,
+       <span class="k">AVG</span>(churned) <span class="k">AS</span> churn_rate
+<span class="k">FROM</span>   customers
+<span class="k">GROUP BY</span> contract
+<span class="k">ORDER BY</span> churn_rate <span class="k">DESC</span>;</pre>
+            <button type="button" class="btn btn--ghost btn--sm lab__run"><span class="run-ic" aria-hidden="true">▶</span> Run query</button>
+            <div class="cbars" aria-live="polite">
+              <div class="cbar" style="--v:.427"><span>Month-to-month</span><i></i><b data-v="42.7">42.7%</b></div>
+              <div class="cbar" style="--v:.113"><span>One year</span><i></i><b data-v="11.3">11.3%</b></div>
+              <div class="cbar" style="--v:.028"><span>Two year</span><i></i><b data-v="2.8">2.8%</b></div>
+            </div>
+            <p class="lab__status">3 rows · ran on 7,043 customers</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- AGENTS: agentic AI with LLMs, and a live agent loop -->
+    <section class="agents" id="agents" aria-labelledby="agents-h">
+      <div class="wrap">
+        <div class="sec-head">
+          <p class="eyebrow">Agentic AI · LLMs that use tools</p>
+          <h2 class="h2" id="agents-h" data-split>Agents that plan, call tools and check their work.</h2>
+        </div>
+        <div class="agents__grid">
+          <div class="agents__text">
+            <p class="agents__lead">I build LLM agents that break a goal into steps, call tools such as SQL, search and code, and check the result before they answer. Then I measure them: my eval harness gates every release, and at Outlier and micro1 I rate agent replies against rubrics.</p>
+            <ul class="caps">
+              <li><span class="caps__i" aria-hidden="true">ƒ</span><div><h3>Tool use and function calling</h3><p>Typed tools for SQL, search, files and APIs, with validation and retries.</p></div></li>
+              <li><span class="caps__i" aria-hidden="true">↻</span><div><h3>Planning loops</h3><p>Plan, act, observe and repeat within a step budget, with memory between steps.</p></div></li>
+              <li><span class="caps__i" aria-hidden="true">⌕</span><div><h3>Retrieval (RAG)</h3><p>Grounding answers in documents and video: the video-search project finds the moment that matches a sentence.</p></div></li>
+              <li><span class="caps__i" aria-hidden="true">✓</span><div><h3>Evals and release gates</h3><p>A 60-task agent benchmark with bootstrap intervals and McNemar tests. Candidate v2: pass rate 80.0% → 95.0%, p = 0.0039.</p></div></li>
+              <li><span class="caps__i" aria-hidden="true">◎</span><div><h3>Guardrails and human review</h3><p>Rubric-based rating of LLM and agent replies in Hindi and English, with a written reason for each.</p></div></li>
+            </ul>
+          </div>
+
+          <div class="panel agent">
+            <div class="panel__head"><span>agent.run(goal)</span><span class="live"><i></i>runs in your browser</span></div>
+            <svg class="agent__graph" viewBox="0 0 590 290" aria-hidden="true">
+              <g class="ag-edges">
+                <path data-e="goal-plan" d="M130 150 H160"/>
+                <path data-e="plan-sql" d="M280 150 C300 150 300 54 320 54"/>
+                <path data-e="plan-calc" d="M280 150 H320"/>
+                <path data-e="plan-docs" d="M280 150 C300 150 300 246 320 246"/>
+                <path data-e="plan-eval" d="M220 128 C220 -8 520 -8 520 60"/>
+                <path data-e="eval-ans" d="M520 104 V196"/>
+              </g>
+              <g class="ag-nodes">
+                <g data-n="goal"><rect x="10" y="128" width="120" height="44" rx="10"/><text x="70" y="154">goal</text></g>
+                <g data-n="plan"><rect x="160" y="128" width="120" height="44" rx="10"/><text x="220" y="148">planner</text><text class="sub" x="220" y="163">LLM role</text></g>
+                <g data-n="sql" class="tool"><rect x="320" y="34" width="110" height="40" rx="9"/><text x="375" y="58">sql</text></g>
+                <g data-n="calc" class="tool"><rect x="320" y="130" width="110" height="40" rx="9"/><text x="375" y="154">calculator</text></g>
+                <g data-n="docs" class="tool"><rect x="320" y="226" width="110" height="40" rx="9"/><text x="375" y="250">docs search</text></g>
+                <g data-n="eval"><rect x="460" y="60" width="120" height="44" rx="10"/><text x="520" y="80">evaluator</text><text class="sub" x="520" y="95">checks sources</text></g>
+                <g data-n="ans"><rect x="460" y="196" width="120" height="44" rx="10"/><text x="520" y="222">answer</text></g>
+              </g>
+              <circle class="ag-pkt" r="5" cx="-20" cy="-20"/>
+            </svg>
+            <div class="agent__tasks" role="group" aria-label="Pick a goal for the agent">
+              <button type="button" data-task="recall">Which project has the best recall, and how many churners did it catch?</button>
+              <button type="button" data-task="ship">Should the candidate LLM agent ship?</button>
+              <button type="button" data-task="civil">Summarise the civil engineering years.</button>
+            </div>
+            <form class="agent__ask" autocomplete="off">
+              <label class="sr-only" for="agent-q">Ask the agent</label>
+              <input id="agent-q" placeholder="or ask your own question about Zakir's work" spellcheck="false">
+              <button type="submit" class="btn btn--ghost btn--sm">Run</button>
+            </form>
+            <ol class="agent__trace" aria-live="polite" data-lenis-prevent></ol>
+            <div class="agent__answer" hidden></div>
+            <p class="agent__note">Real tools over this site's data. The planner here is a small rule-based router so you can watch every step; in production that role is played by an LLM.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. PROJECTS: horizontal scroll -->
+    <section class="projects" id="projects" aria-labelledby="projects-h">
+      <div class="projects__pin">
+        <div class="projects__track">
+          <div class="projects__intro">
+            <p class="eyebrow">Selected work · 7 repositories</p>
+            <h2 class="h2" id="projects-h" data-split>Projects, with their test results.</h2>
+            <p class="muted">Every number below comes from the repository's own tests. Scroll sideways through them.</p>
+            <a class="link" href="https://github.com/zzzzzzzzak?tab=repositories">All repositories on GitHub</a>
+          </div>
+
+          <article class="proj" data-tilt>
+            <header class="proj__head"><span class="proj__n">01</span><span class="proj__stack">Python · scikit-learn · Streamlit</span></header>
+            <h3>Customer churn and retention</h3>
+            <p>A churn model on 7,043 telecom customers. Moving the cutoff from 0.50 to 0.38 catches 307 of 374 churners in the test set.</p>
+            <div class="chart" data-chart='{"title":"Net benefit on the test set","fmt":"usd","items":[["Logistic baseline",182400],["Ensemble at 0.50",234720],["Ensemble at 0.38",257880]],"hi":2}'></div>
+            <dl class="proj__m"><div><dt>Recall</dt><dd>82.1%</dd></div><div><dt>ROC-AUC</dt><dd>0.848</dd></div><div><dt>Retained</dt><dd>$257,880</dd></div></dl>
+            <a class="link" href="https://github.com/zzzzzzzzak/customer-churn-retention-analysis">See the churn code</a>
+          </article>
+
+          <article class="proj" data-tilt>
+            <header class="proj__head"><span class="proj__n">02</span><span class="proj__stack">Python · SQLite · Parquet</span></header>
+            <h3>Equity forecasting pipeline</h3>
+            <p>Forecasts for 120 tickers in a SQLite and Parquet store, with checks for splits, bad ticks and gaps. The morning report runs in under 45 seconds.</p>
+            <div class="chart" data-chart='{"title":"Sharpe ratio, walk-forward window 9","fmt":"2","items":[["Benchmark",2.40],["Model",3.10]],"hi":1}'></div>
+            <dl class="proj__m"><div><dt>Tickers</dt><dd>120</dd></div><div><dt>Windows</dt><dd>10</dd></div><div><dt>RMSE vs bench</dt><dd>−0.6 to −0.8%</dd></div></dl>
+            <a class="link" href="https://github.com/zzzzzzzzak/equity-forecasting-pipeline">See the forecasting code</a>
+          </article>
+
+          <article class="proj" data-tilt>
+            <header class="proj__head"><span class="proj__n">03</span><span class="proj__stack">SQL · DAX · Power BI</span></header>
+            <h3>Enterprise sales BI</h3>
+            <p>A star schema with 40,000 sales facts, 12 KPIs in SQL and DAX, and drill-down by time, region, product, segment and channel.</p>
+            <div class="chart chart--star" aria-hidden="true">
+              <svg viewBox="0 0 300 150">
+                <g class="star-l"><line x1="150" y1="75" x2="50" y2="28"/><line x1="150" y1="75" x2="250" y2="28"/><line x1="150" y1="75" x2="40" y2="118"/><line x1="150" y1="75" x2="260" y2="118"/><line x1="150" y1="75" x2="150" y2="140"/></g>
+                <g class="star-n"><rect x="104" y="58" width="92" height="34" rx="6" class="star-fact"/><rect x="12" y="14" width="76" height="26" rx="5"/><rect x="212" y="14" width="76" height="26" rx="5"/><rect x="4" y="104" width="72" height="26" rx="5"/><rect x="224" y="104" width="72" height="26" rx="5"/><rect x="116" y="128" width="68" height="20" rx="5"/></g>
+                <g class="star-t"><text x="150" y="79">fact_sales</text><text x="50" y="31">dim_time</text><text x="250" y="31">dim_region</text><text x="40" y="121">dim_product</text><text x="260" y="121">dim_segment</text><text x="150" y="142">dim_channel</text></g>
+              </svg>
+            </div>
+            <dl class="proj__m"><div><dt>Fact rows</dt><dd>40,000+</dd></div><div><dt>KPIs</dt><dd>12</dd></div><div><dt>Dimensions</dt><dd>5</dd></div></dl>
+            <a class="link" href="https://github.com/zzzzzzzzak/enterprise-sales-bi-analytics">See the BI code</a>
+          </article>
+
+          <article class="proj" data-tilt>
+            <header class="proj__head"><span class="proj__n">04</span><span class="proj__stack">Python · statistics · CI gate</span></header>
+            <h3>LLM agent eval harness</h3>
+            <p>A 60-task benchmark for LLM agents with bootstrap intervals, permutation and McNemar tests, and a CI gate that blocks a weaker release.</p>
+            <div class="chart" data-chart='{"title":"Pass rate, baseline v1 vs candidate v2","fmt":"pct","items":[["baseline_v1",80.0],["candidate_v2",95.0]],"hi":1,"max":100}'></div>
+            <dl class="proj__m"><div><dt>McNemar p</dt><dd>0.0039</dd></div><div><dt>p95 latency</dt><dd>680 → 578 ms</dd></div><div><dt>Gate</dt><dd>PASS</dd></div></dl>
+            <a class="link" href="https://github.com/zzzzzzzzak/llm-agent-eval-harness">See the eval harness</a>
+          </article>
+
+          <article class="proj" data-tilt>
+            <header class="proj__head"><span class="proj__n">05</span><span class="proj__stack">PyTorch · quantization</span></header>
+            <h3>Quant-ops engine</h3>
+            <p>INT8 per-channel and INT4 group-wise quantization for a 12.86M-parameter model, with an FP16 softmax overflow test.</p>
+            <div class="chart" data-chart='{"title":"Weight size in MB","fmt":"mb","items":[["FP32",49.06],["INT8 per channel",12.38],["INT4, group 128",6.56]],"hi":2}'></div>
+            <dl class="proj__m"><div><dt>Compression</dt><dd>7.47×</dd></div><div><dt>Cosine sim</dt><dd>0.9973</dd></div><div><dt>Params</dt><dd>12.86M</dd></div></dl>
+            <a class="link" href="https://github.com/zzzzzzzzak/quant-ops-engine">See the quantization code</a>
+          </article>
+
+          <article class="proj" data-tilt>
+            <header class="proj__head"><span class="proj__n">06</span><span class="proj__stack">PyTorch · retrieval · re-ranking</span></header>
+            <h3>Video moment search</h3>
+            <p>Finds the moment in a video that matches a sentence: shot cuts, a 512-dimension dual encoder and a cross-attention re-ranker.</p>
+            <div class="chart" data-chart='{"title":"Recall at tIoU 0.5","fmt":"pct","items":[["Recall@1",50.0],["Recall@3",75.0]],"hi":1,"max":100}'></div>
+            <dl class="proj__m"><div><dt>p50, CPU</dt><dd>26 ms</dd></div><div><dt>p95, CPU</dt><dd>31 ms</dd></div><div><dt>Encoder</dt><dd>512-d</dd></div></dl>
+            <a class="link" href="https://github.com/zzzzzzzzak/multimodal-temporal-video-rag">See the video search code</a>
+          </article>
+
+          <article class="proj" data-tilt>
+            <header class="proj__head"><span class="proj__n">07</span><span class="proj__stack">PyTorch · SE-ResNet · FFT</span></header>
+            <h3>Deepfake detector</h3>
+            <p>Spots AI-made faces by pairing an SE-ResNet image stream with the 2D FFT power spectrum, which generators get wrong.</p>
+            <div class="chart chart--ring" data-ring="0.954" aria-hidden="true">
+              <svg viewBox="0 0 120 120"><circle class="ring-bg" cx="60" cy="60" r="48"/><circle class="ring-fg" cx="60" cy="60" r="48" pathLength="1"/></svg>
+              <div class="ring-v"><b>0.954</b><span>ROC-AUC, held out</span></div>
+            </div>
+            <dl class="proj__m"><div><dt>EER</dt><dd>10.0%</dd></div><div><dt>Precision</dt><dd>1.000</dd></div><div><dt>p50, CPU</dt><dd>19 ms</dd></div></dl>
+            <a class="link" href="https://github.com/zzzzzzzzak/spatial-frequency-deepfake-detector">See the detector code</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. EXPERIENCE -->
+    <section class="exp" id="experience" aria-labelledby="experience-h">
+      <div class="wrap exp__grid">
+        <div class="exp__side">
+          <p class="eyebrow">Experience · since 2017</p>
+          <h2 class="h2" id="experience-h" data-split>Eight roles, four numbers they moved.</h2>
+          <ul class="ba">
+            <li><span class="ba__k">SLA compliance</span><span class="ba__row"><i class="ba__b" style="--w:.81"></i><em>81%</em></span><span class="ba__row ba__row--a"><i class="ba__b" style="--w:.945"></i><em>94.5%</em></span></li>
+            <li><span class="ba__k">Dataset rework</span><span class="ba__row"><i class="ba__b" style="--w:1"></i><em>4.8%</em></span><span class="ba__row ba__row--a"><i class="ba__b" style="--w:.25"></i><em>1.2%</em></span></li>
+            <li><span class="ba__k">Morning report</span><span class="ba__row"><i class="ba__b" style="--w:1"></i><em>6 h</em></span><span class="ba__row ba__row--a"><i class="ba__b" style="--w:.125"></i><em>45 min</em></span></li>
+            <li><span class="ba__k">Approval cycle</span><span class="ba__row"><i class="ba__b" style="--w:1"></i><em>5 days</em></span><span class="ba__row ba__row--a"><i class="ba__b" style="--w:.3"></i><em>1.5 days</em></span></li>
+          </ul>
+          <p class="ba__legend"><span><i></i>before</span><span><i class="a"></i>after</span></p>
+        </div>
+        <ol class="tl">
+          <li class="tl__line" aria-hidden="true"><i></i></li>
+          <li class="tl__item"><span class="tl__y">2026</span><h3>AI training contributor, Outlier</h3><p>Hindi and English audio, TTS and agent replies rated against rubrics.</p></li>
+          <li class="tl__item"><span class="tl__y">2026 → now</span><h3>AI data specialist, micro1</h3><p>Video annotation, rated senior.</p></li>
+          <li class="tl__item"><span class="tl__y">2025 → 2026</span><h3>Data analyst and ML specialist, Deccan Holdings</h3><p>Pipelines for 4.5M records a day; a 6-hour report down to 45 minutes.</p></li>
+          <li class="tl__item"><span class="tl__y">2023 → 2024</span><h3>Healthcare data analyst, eHealth Technologies</h3><p>12 US client networks, HIPAA audits.</p></li>
+          <li class="tl__item"><span class="tl__y">2022 → 2023</span><h3>Operations data analyst, Webonise Labs</h3><p>450,000 frames checked.</p></li>
+          <li class="tl__item"><span class="tl__y">2019 → 2022</span><h3>BI and MIS analyst, Deccan Infrastructure</h3><p>INR 38 lakh recovered from billing.</p></li>
+          <li class="tl__item tl__item--civil"><span class="tl__y">2018 → 2019</span><h3>Project operations, Teemage Builders</h3><p>Precast tracking, about 20% faster.</p></li>
+          <li class="tl__item tl__item--civil"><span class="tl__y">2017</span><h3>Civil engineering intern, CBRE</h3><p>Site checks against BBS and drawings.</p></li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- 7. SKILLS -->
+    <section class="skills" id="skills" aria-labelledby="skills-h">
+      <div class="wrap sec-head">
+        <p class="eyebrow">Toolbox · 14 tools, 4 languages</p>
+        <h2 class="h2" id="skills-h" data-split>The stack, from AutoCAD to PyTorch.</h2>
+      </div>
+      <div class="marquee" aria-hidden="true">
+        <div class="marquee__row"><span>Python</span><span>SQL</span><span>Pandas</span><span>scikit-learn</span><span>PyTorch</span><span>XGBoost</span><span>spaCy</span><span>LLM agents</span><span>RAG</span><span>Python</span><span>SQL</span><span>Pandas</span><span>scikit-learn</span><span>PyTorch</span><span>XGBoost</span><span>spaCy</span><span>LLM agents</span><span>RAG</span></div>
+        <div class="marquee__row marquee__row--rev"><span>Power BI</span><span>DAX</span><span>Streamlit</span><span>Flask</span><span>GitHub Actions</span><span>AutoCAD</span><span>Primavera P6</span><span>Power BI</span><span>DAX</span><span>Streamlit</span><span>Flask</span><span>GitHub Actions</span><span>AutoCAD</span><span>Primavera P6</span></div>
+      </div>
+      <div class="wrap">
+        <div class="graph">
+          <canvas class="graph__cv" aria-hidden="true"></canvas>
+          <div class="graph__ui">
+            <p class="graph__hint"><span class="hint-fine">Drag the nodes around. </span>Pick a discipline to light up its tools.</p>
+            <div class="seg seg--wrap" role="group" aria-label="Highlight a discipline">
+              <button type="button" class="seg__b" data-hub="" aria-pressed="true">All</button>
+              <button type="button" class="seg__b" data-hub="da" aria-pressed="false">Data analysis</button>
+              <button type="button" class="seg__b" data-hub="ds" aria-pressed="false">Data science</button>
+              <button type="button" class="seg__b" data-hub="be" aria-pressed="false">Backend</button>
+              <button type="button" class="seg__b" data-hub="web" aria-pressed="false">Web</button>
+              <button type="button" class="seg__b" data-hub="ai" aria-pressed="false">Agentic AI</button>
+              <button type="button" class="seg__b" data-hub="civ" aria-pressed="false">Civil engineering</button>
+            </div>
+          </div>
+        </div>
+        <ul class="lv">
+          <li><span>Python</span><i class="lv__m" data-l="3"></i><em>Advanced</em></li>
+          <li><span>SQL</span><i class="lv__m" data-l="3"></i><em>Advanced</em></li>
+          <li><span>Machine learning</span><i class="lv__m" data-l="3"></i><em>Advanced</em></li>
+          <li><span>Power BI and Excel</span><i class="lv__m" data-l="3"></i><em>Advanced</em></li>
+          <li><span>AI rating and annotation</span><i class="lv__m" data-l="3"></i><em>Advanced</em></li>
+          <li><span>AutoCAD, STAAD Pro, ETABS, Revit</span><i class="lv__m" data-l="3"></i><em>Advanced</em></li>
+          <li><span>Primavera P6 and MS Project</span><i class="lv__m" data-l="3"></i><em>Advanced</em></li>
+          <li><span>Git and GitHub</span><i class="lv__m" data-l="2"></i><em>Intermediate</em></li>
+          <li><span>HTML and CSS</span><i class="lv__m" data-l="2"></i><em>Intermediate</em></li>
+          <li><span>React</span><i class="lv__m" data-l="1"></i><em>Beginner</em></li>
+          <li><span>Java</span><i class="lv__m" data-l="1"></i><em>Beginner</em></li>
+          <li><span>Hindi · English · Urdu · Marathi</span><i class="lv__m" data-l="3"></i><em>Native · C1 · fluent</em></li>
+        </ul>
+        <div class="edu">
+          <div><span class="edu__y">2016</span><h3>B.E. in civil engineering</h3><p>MGM's Jawaharlal Nehru Engineering College</p></div>
+          <div><span class="edu__y">2018</span><h3>PG diploma, construction management</h3><p>NICMAR</p></div>
+          <div><span class="edu__y">2025</span><h3>Data science and analytics</h3><p>Coding Ninjas certificate</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TERMINAL: query the career -->
+    <section class="query" id="query" aria-labelledby="query-h">
+      <div class="wrap">
+        <div class="sec-head">
+          <p class="eyebrow">Terminal · SQL over my career</p>
+          <h2 class="h2" id="query-h" data-split>Skip the resume. Query it.</h2>
+        </div>
+        <div class="tty">
+          <div class="tty__bar"><i></i><i></i><i></i><span>zakir@portfolio: ~/career.db</span></div>
+          <div class="tty__out" role="log" aria-live="polite" data-lenis-prevent tabindex="0" aria-label="Terminal output"></div>
+          <form class="tty__in" autocomplete="off">
+            <label class="tty__prompt" for="tty-q">sql&gt;</label>
+            <input id="tty-q" name="q" spellcheck="false" autocapitalize="off" placeholder="type help, or try a query below">
+            <button type="submit" class="tty__go" aria-label="Run">↵</button>
+          </form>
+        </div>
+        <div class="tty__chips" role="group" aria-label="Example queries">
+          <button type="button" data-q="SELECT name, metric, value FROM projects;">SELECT * FROM projects</button>
+          <button type="button" data-q="SELECT year, role, company FROM roles WHERE area = 'data';">roles WHERE area = 'data'</button>
+          <button type="button" data-q="SELECT skill, level FROM skills WHERE area = 'civil';">civil skills</button>
+          <button type="button" data-q="SELECT * FROM education;">education</button>
+          <button type="button" data-q="whoami">whoami</button>
+          <button type="button" data-q="help">help</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 8. CONTACT -->
+    <section class="contact" id="contact" aria-labelledby="close-h">
+      <div class="wrap">
+        <p class="eyebrow">Next · remote roles and contracts</p>
+        <h2 class="contact__h" id="close-h" data-split>Have data that should be making decisions?</h2>
+        <div class="contact__row">
+          <a class="btn btn--primary btn--xl magnetic" href="mailto:zak.siddiqui16@gmail.com">Email Zakir</a>
+          <div class="contact__links">
+            <a class="link" href="https://github.com/zzzzzzzzak">GitHub</a>
+            <a class="link" href="https://www.linkedin.com/in/zakir-siddiqui-ml-data-analyst">LinkedIn</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <div class="foot__big" aria-hidden="true"><span>SIDDIQUI</span></div>
+    <div class="wrap foot__row">
+      <span>© 2026 Zakir Siddiqui · Maharashtra, India · working remotely</span>
+      <span>Built with Three.js, GSAP and Lenis</span>
+      <a class="link" href="#top">Back to top</a>
+    </div>
+  </footer>
+
+  <script src="assets/vendor/gsap.min.js" defer></script>
+  <script src="assets/vendor/ScrollTrigger.min.js" defer></script>
+  <script src="assets/vendor/lenis.min.js" defer></script>
+  <script type="module" src="assets/site.js"></script>
+</body>
+</html>
