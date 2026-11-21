@@ -14,6 +14,21 @@ function rng(seed) {        // small deterministic PRNG so the skyline is the sa
 }
 const cellPos = (i) => (i - N / 2 + 0.5) * CELL + (Math.floor(i / 4) - 2.5) * GAP;
 
+// play mode (the drive game): a bright toy town in daylight
+const PLAY_GLSL = /* glsl */`
+  const vec3 SKY_HZ = vec3(1.0, 0.86, 0.72);
+  const vec3 SKY_TOP = vec3(0.33, 0.62, 0.98);
+  vec3 toyColour(float s) {
+    float i = floor(s * 7.0);
+    if (i < 1.0) return vec3(1.00, 0.42, 0.42);   // coral
+    if (i < 2.0) return vec3(1.00, 0.80, 0.30);   // sunflower
+    if (i < 3.0) return vec3(0.20, 0.80, 0.62);   // mint
+    if (i < 4.0) return vec3(0.30, 0.70, 1.00);   // sky
+    if (i < 5.0) return vec3(0.62, 0.44, 0.95);   // violet
+    if (i < 6.0) return vec3(1.00, 0.58, 0.36);   // tangerine
+    return vec3(1.00, 0.55, 0.78);                // bubblegum
+  }`;
+
 const buildingVert = /* glsl */`
   attribute vec4 aCity;   // x, z, height, width
   attribute vec4 aChart;
@@ -21,9 +36,11 @@ const buildingVert = /* glsl */`
   attribute float aIdx;
   attribute float aLand;
   uniform float uMorph, uTime, uIntro, uHover, uPick;
-  varying vec3 vLocal, vScale, vWorld, vN;
+  varying vec3 vLocal, vScale, vWorld, vN, vToy;
   varying float vM, vSeed, vHi, vLand;
+  ${PLAY_GLSL}
   void main() {
+    vToy = toyColour(fract(sin(aIdx * 12.9898 + 4.1) * 43758.5453));   // one colour per building, decided per vertex
     vHi = max(1.0 - step(0.5, abs(aIdx - uHover)), (1.0 - step(0.5, abs(aIdx - uPick))) * 1.6);
     vLand = aLand;
     float m = clamp(uMorph * 1.75 - aSeed * 0.75, 0.0, 1.0);
@@ -44,11 +61,12 @@ const buildingVert = /* glsl */`
   }`;
 
 const buildingFrag = /* glsl */`
-  uniform float uTime, uDay;
-  uniform vec3 uBg;
-  varying vec3 vLocal, vScale, vWorld, vN;
+  uniform float uTime, uDay, uPlay, uCut;
+  uniform vec3 uBg, uFocus;
+  varying vec3 vLocal, vScale, vWorld, vN, vToy;
   varying float vM, vSeed, vHi, vLand;
   float hash(vec2 p) { return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453); }
+  ${PLAY_GLSL}
   void main() {
     vec3 q = vLocal - vec3(0.0, 0.5, 0.0);
     vec3 d = (0.5 - abs(q)) * vScale;                 // distance to each face, world units
@@ -90,14 +108,49 @@ const buildingFrag = /* glsl */`
     vec3 col = mix(city, chart, vM);
     vec3 hiC = vec3(0.30, 0.95, 0.78);
     col = mix(col, col * 0.5 + hiC * (0.18 + edge * 1.4 + halo * 0.3), clamp(vHi, 0.0, 1.0));
-    float fog = smoothstep(16.0, 44.0, length(vWorld - cameraPosition));
-    gl_FragColor = vec4(mix(col, uBg, fog), 1.0);
+
+    if (uPlay > 0.001) {
+      vec3 pc = vToy;
+      float sun = 0.58 + 0.42 * max(dot(n, normalize(vec3(0.5, 0.85, 0.35))), 0.0);
+      vec3 glass = vec3(0.66, 0.86, 1.0);
+      // windows fade into a plain tint where they get smaller than a few pixels (no shimmer)
+      float fw = max(fwidth(cell.x), fwidth(cell.y));
+      float wDetail = 1.0 - smoothstep(0.2, 0.5, fw);
+      float wAmt = mix(0.3 * side, win * 0.9, wDetail);
+      vec3 play = mix(pc * sun, glass * (0.75 + 0.25 * sun), wAmt);
+      play = mix(play, min(pc * 1.12 + 0.14, vec3(1.0)), top);           // sunlit roofs
+      play *= 0.74 + 0.26 * smoothstep(0.0, 0.7, vWorld.y);             // soft contact shadow
+      if (vLand > 0.5) {
+        float band = step(0.5, fract(vWorld.y / 0.42));
+        float beacon = smoothstep(0.86, 1.0, vLocal.y) * (0.6 + 0.4 * sin(uTime * 3.0 + vLand * 1.7));
+        play = mix(vec3(0.98, 0.97, 0.94) * sun, vec3(1.0, 0.78, 0.25) * sun, band * side * 0.85) + vec3(1.0, 0.5, 0.7) * beacon * 0.6;
+      }
+      play *= 1.0 - edge * 0.5;                                          // toon outline
+      play = mix(play, play * 0.6 + hiC * (0.25 + edge * 1.2), clamp(vHi, 0.0, 1.0));
+      col = mix(col, play, uPlay);
+    }
+
+    // see-through: anything between the camera and the rover becomes an outline
+    if (uCut > 0.001) {
+      vec3 seg = uFocus - cameraPosition;
+      float t = clamp(dot(vWorld - cameraPosition, seg) / dot(seg, seg), 0.0, 1.0);
+      float r = mix(1.5, 0.75, t);
+      float inside = (1.0 - smoothstep(r * 0.8, r, length(vWorld - (cameraPosition + seg * t)))) * step(t, 0.97);
+      vec2 g = mod(floor(gl_FragCoord.xy), 2.0);
+      float dither = g.x == g.y ? 0.25 : 0.75;
+      if (inside * uCut * (1.0 - edge) > dither * 0.4 + 0.08) discard;
+    }
+
+    vec3 fogC = mix(uBg, SKY_HZ, uPlay);
+    float fog = smoothstep(16.0 + uPlay * 6.0, 44.0 + uPlay * 10.0, length(vWorld - cameraPosition));
+    gl_FragColor = vec4(mix(col, fogC, fog), 1.0);
   }`;
 
 const groundFrag = /* glsl */`
-  uniform float uMorph;
+  uniform float uMorph, uPlay;
   uniform vec3 uBg;
   varying vec3 vW;
+  ${PLAY_GLSL}
   float gridLine(vec2 p, float s) {
     vec2 g = abs(fract(p / s - 0.5) - 0.5) / fwidth(p / s);
     return 1.0 - min(min(g.x, g.y), 1.0);
@@ -111,6 +164,27 @@ const groundFrag = /* glsl */`
     float fade = 1.0 - smoothstep(6.0, 26.0, r);
     vec3 glow = c * 0.10 * (1.0 - smoothstep(0.0, 16.0, r));
     vec3 col = uBg + glow + c * (minor + major * 0.7) * 0.32 * fade;
+
+    if (uPlay > 0.001) {
+      // streets run every 4.2 units (x or z = 0, ±4.2, ±8.4) plus a ring road at ±12.6
+      vec2 p = vW.xz;
+      vec2 dd = abs(mod(p + 2.1, 4.2) - 2.1);
+      float box = max(abs(p.x), abs(p.y));
+      float town = 1.0 - smoothstep(13.3, 13.5, box);
+      float aa = fwidth(p.x) + fwidth(p.y);
+      float road = max(1.0 - smoothstep(0.42 - aa, 0.42 + aa, min(dd.x, dd.y)), smoothstep(12.2, 12.25, box)) * town;
+      float lineX = (1.0 - smoothstep(0.022, 0.022 + aa, dd.x)) * step(0.5, fract(p.y * 1.3)) * step(0.5, dd.y) * step(box, 12.2);
+      float lineZ = (1.0 - smoothstep(0.022, 0.022 + aa, dd.y)) * step(0.5, fract(p.x * 1.3)) * step(0.5, dd.x) * step(box, 12.2);
+      float kerb = (1.0 - smoothstep(0.0, aa * 1.5, abs(min(dd.x, dd.y) - 0.44))) * step(box, 12.2);
+      vec3 grass = mix(vec3(0.50, 0.82, 0.44), vec3(0.42, 0.74, 0.40), gridLine(p, 2.1) * 0.5);
+      vec3 pave = vec3(0.95, 0.91, 0.84) - gridLine(p, 0.45) * 0.05;
+      vec3 g = mix(grass, pave, town);
+      g = mix(g, vec3(0.27, 0.29, 0.34), road);
+      g = mix(g, vec3(1.0, 0.85, 0.25), max(lineX, lineZ) * road);
+      g = mix(g, vec3(1.0), kerb * 0.6);
+      g = mix(g, SKY_HZ, smoothstep(22.0, 60.0, r));
+      col = mix(col, g, uPlay);
+    }
     gl_FragColor = vec4(col, 1.0);
   }`;
 
@@ -135,12 +209,13 @@ const dotVert = /* glsl */`
   }`;
 
 const dotFrag = /* glsl */`
+  uniform float uPlay;
   varying float vA, vM;
   void main() {
     vec2 c = gl_PointCoord - 0.5;
     float a = smoothstep(0.5, 0.0, length(c));
     vec3 col = mix(vec3(1.0, 0.82, 0.55), vec3(0.45, 1.0, 0.85), vM);
-    gl_FragColor = vec4(col * a * vA, a * vA);
+    gl_FragColor = vec4(col * a * vA * (1.0 - uPlay), a * vA * (1.0 - uPlay));
   }`;
 
 export function createCity(canvas, { reduced = false } = {}) {
@@ -194,7 +269,8 @@ export function createCity(canvas, { reduced = false } = {}) {
   geo.setAttribute('aIdx', new THREE.InstancedBufferAttribute(aIdx, 1));
   geo.setAttribute('aLand', new THREE.InstancedBufferAttribute(aLand, 1));
   geo.instanceCount = count;
-  const uniforms = { uMorph: { value: 0 }, uTime: { value: 0 }, uIntro: { value: reduced ? 1 : 0 }, uHover: { value: -1 }, uPick: { value: -1 }, uDay: { value: 0 }, uBg: { value: BG }, uPx: { value: 2.2 * dpr } };
+  const uniforms = { uMorph: { value: 0 }, uTime: { value: 0 }, uIntro: { value: reduced ? 1 : 0 }, uHover: { value: -1 }, uPick: { value: -1 }, uDay: { value: 0 }, uBg: { value: BG }, uPx: { value: 2.2 * dpr },
+    uPlay: { value: 0 }, uCut: { value: 0 }, uFocus: { value: new THREE.Vector3() } };
   const buildings = new THREE.Mesh(geo, new THREE.ShaderMaterial({ vertexShader: buildingVert, fragmentShader: buildingFrag, uniforms }));
   buildings.frustumCulled = false;
   scene.add(buildings);
@@ -203,7 +279,17 @@ export function createCity(canvas, { reduced = false } = {}) {
   const sky = new THREE.Mesh(new THREE.SphereGeometry(90, 32, 16), new THREE.ShaderMaterial({
     side: THREE.BackSide, uniforms, depthWrite: false,
     vertexShader: 'varying vec3 vP; void main(){ vP = position; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }',
-    fragmentShader: 'uniform vec3 uBg; uniform float uMorph, uDay; varying vec3 vP; void main(){ float h = clamp(vP.y / 90.0, 0.0, 1.0); vec3 band = mix(vec3(0.02, 0.05, 0.12), vec3(0.02, 0.09, 0.08), uMorph); gl_FragColor = vec4(uBg + band * (1.0 - smoothstep(0.0, 0.35, h)) * (0.55 + uDay * 0.9), 1.0); }',
+    fragmentShader: `uniform vec3 uBg; uniform float uMorph, uDay, uPlay; varying vec3 vP; ${PLAY_GLSL}
+      void main(){
+        float h = clamp(vP.y / 90.0, 0.0, 1.0);
+        vec3 band = mix(vec3(0.02, 0.05, 0.12), vec3(0.02, 0.09, 0.08), uMorph);
+        vec3 night = uBg + band * (1.0 - smoothstep(0.0, 0.35, h)) * (0.55 + uDay * 0.9);
+        vec3 dir = normalize(vP);
+        float cloud = smoothstep(0.55, 0.85, sin(dir.x * 9.0 + sin(dir.z * 5.0) * 1.5) * sin(dir.z * 7.0 + dir.x * 3.0)) * smoothstep(0.04, 0.2, h) * (1.0 - smoothstep(0.35, 0.6, h));
+        vec3 day = mix(SKY_HZ, SKY_TOP, smoothstep(0.0, 0.45, h));
+        day = mix(day, vec3(1.0), cloud * 0.55);
+        gl_FragColor = vec4(mix(night, day, uPlay), 1.0);
+      }`,
   }));
   scene.add(sky);
 
@@ -256,7 +342,26 @@ export function createCity(canvas, { reduced = false } = {}) {
   nose.position.set(0, 0.14, 0.26);
   const ring = new THREE.Mesh(new THREE.RingGeometry(0.5, 0.56, 48), new THREE.MeshBasicMaterial({ color: 0x4cf0c8, transparent: true, opacity: 0.5, blending: THREE.AdditiveBlending, depthWrite: false, side: THREE.DoubleSide }));
   ring.rotation.x = -Math.PI / 2; ring.position.y = 0.02;
-  rover.add(roverBody, roverEdges, scanner, nose, ring);
+  const wheelMat = new THREE.MeshBasicMaterial({ color: 0x1b1f27 });
+  const wheels = [[-0.19, 0.16], [0.19, 0.16], [-0.19, -0.16], [0.19, -0.16]].map(([x, z]) => {
+    const w = new THREE.Mesh(new THREE.CylinderGeometry(0.07, 0.07, 0.06, 14), wheelMat);
+    w.rotation.z = Math.PI / 2; w.position.set(x, 0.07, z); return w;
+  });
+  rover.add(roverBody, roverEdges, scanner, nose, ring, ...wheels);
+  // night colours for the hero, toy colours for the game
+  const ROVER = {
+    night: { body: 0x0d1a22, edge: 0x4cf0c8, scan: 0x4cf0c8 },
+    play: { body: 0xff4f5e, edge: 0xffffff, scan: 0xffd23f },
+  };
+  function paintRover(p) {
+    const c = ROVER[p ? 'play' : 'night'];
+    roverBody.material.color.set(c.body); roverEdges.material.color.set(c.edge); scanner.material.color.set(c.scan);
+    ring.material.blending = p ? THREE.NormalBlending : THREE.AdditiveBlending;
+    ring.material.color.set(p ? 0xffffff : 0x4cf0c8); ring.material.opacity = p ? 0.7 : 0.5;
+    ring.material.needsUpdate = true;
+    beamMat.color.set(p ? 0xff5fa2 : 0x4cf0c8);
+    beamMat.blending = p ? THREE.NormalBlending : THREE.AdditiveBlending; beamMat.needsUpdate = true;
+  }
   rover.visible = false;
   scene.add(rover);
 
@@ -303,28 +408,52 @@ export function createCity(canvas, { reduced = false } = {}) {
     return false;
   }
   const fwd = new THREE.Vector3(), camGoal = new THREE.Vector3(), lookGoal = new THREE.Vector3(), lookNow = new THREE.Vector3();
+  const STREET = 4.2, RAD = 0.16;                 // streets sit on multiples of 4.2 (ring road at ±12.6)
+  const snapStreet = (v) => Math.max(-12.6, Math.min(12.6, Math.round(v / STREET) * STREET));
+  let camYaw = 0, spin = 0;
   function stepDrive(dt) {
     const accel = 7, maxV = 5.2;
     drive.v += drive.throttle * accel * dt;
     drive.v *= Math.pow(drive.throttle ? 0.6 : 0.06, dt);
     drive.v = Math.max(-maxV * 0.5, Math.min(maxV, drive.v));
-    const turn = drive.steer * 2.4 * dt * (0.35 + Math.min(1, Math.abs(drive.v) / 2)) * (drive.v < -0.05 ? -1 : 1);
+    // brake into corners so a 90° turn fits inside a crossroads; turn on the spot when stopped
+    if (drive.steer && Math.abs(drive.v) > 2.2) drive.v *= Math.pow(0.08, dt);
+    const turn = drive.steer * 3.2 * dt * (0.55 + Math.min(1, Math.abs(drive.v) / 2)) * (drive.v < -0.05 ? -1 : 1);
     drive.h -= turn;
+
+    // lane assist: with no steering input, settle onto the street's axis and centre line
+    if (!drive.steer && (Math.abs(drive.v) > 0.2 || drive.throttle)) {
+      const q = Math.PI / 2, target = Math.round(drive.h / q) * q, k = Math.min(1, dt * 4);
+      drive.h += (target - drive.h) * k;
+      const alongZ = Math.abs(Math.cos(target)) > 0.5, CAP = 0.9;
+      if (alongZ) { const sx = snapStreet(drive.x); if (Math.abs(sx - drive.x) < CAP && !blocked(drive.x + (sx - drive.x) * k, drive.z, RAD)) drive.x += (sx - drive.x) * k; }
+      else { const sz = snapStreet(drive.z); if (Math.abs(sz - drive.z) < CAP && !blocked(drive.x, drive.z + (sz - drive.z) * k, RAD)) drive.z += (sz - drive.z) * k; }
+    }
+
     const nx = drive.x + Math.sin(drive.h) * drive.v * dt, nz = drive.z + Math.cos(drive.h) * drive.v * dt;
-    if (!blocked(nx, nz, 0.2)) { drive.x = nx; drive.z = nz; }
-    else if (!blocked(nx, drive.z, 0.2)) { drive.x = nx; drive.v *= 0.7; }
-    else if (!blocked(drive.x, nz, 0.2)) { drive.z = nz; drive.v *= 0.7; }
-    else drive.v *= -0.25;
+    if (!blocked(nx, nz, RAD)) { drive.x = nx; drive.z = nz; }
+    else if (!blocked(nx, drive.z, RAD)) { drive.x = nx; drive.v *= 0.85; }       // slide along the wall
+    else if (!blocked(drive.x, nz, RAD)) { drive.z = nz; drive.v *= 0.85; }
+    else drive.v *= -0.15;
     rover.position.set(drive.x, 0, drive.z);
     rover.rotation.y = drive.h;
+    spin += drive.v * dt / 0.07;
+    wheels.forEach((w) => { w.rotation.x = spin; });
     scanner.rotation.y += dt * 6;
     ring.scale.setScalar(1 + 0.15 * Math.sin(state.t * 4));
-    fwd.set(Math.sin(drive.h), 0, Math.cos(drive.h));
-    camGoal.set(drive.x - fwd.x * 4.4, 2.7, drive.z - fwd.z * 4.4);
-    lookGoal.set(drive.x + fwd.x * 1.6, 0.5, drive.z + fwd.z * 1.6);
-    const a = 1 - Math.exp(-dt * 4.5);
+
+    // chase camera: high and close, swinging round smoothly so it never whips through a block
+    let dy = drive.h - camYaw; dy = Math.atan2(Math.sin(dy), Math.cos(dy));
+    camYaw += dy * (1 - Math.exp(-dt * 3.2));
+    fwd.set(Math.sin(camYaw), 0, Math.cos(camYaw));
+    const tall = Math.max(0, Math.min(1, 1 - state.w / state.h));   // portrait phones: pull back and up
+    const back = 3.4 + tall * 1.8, up = 3.6 + tall * 2.4;
+    camGoal.set(drive.x - fwd.x * back, up, drive.z - fwd.z * back);
+    lookGoal.set(drive.x + Math.sin(drive.h) * 1.8, 0.25, drive.z + Math.cos(drive.h) * 1.8);
+    const a = 1 - Math.exp(-dt * 6);
     camera.position.lerp(camGoal, a); lookNow.lerp(lookGoal, a);
     camera.lookAt(lookNow);
+    uniforms.uFocus.value.set(drive.x, 0.3, drive.z);
   }
 
   function resize() {
@@ -348,9 +477,17 @@ export function createCity(canvas, { reduced = false } = {}) {
     if (!state.dragging) { state.rot += state.vel; state.vel *= Math.pow(0.04, dt); }
     uniforms.uMorph.value = state.morph;
     uniforms.uTime.value = state.t;
+    const playGoal = state.explore ? 1 : 0;
+    uniforms.uPlay.value += (playGoal - uniforms.uPlay.value) * (reduced ? 1 : Math.min(1, dt * 2.5));
+    if (Math.abs(playGoal - uniforms.uPlay.value) < 0.002) uniforms.uPlay.value = playGoal;
+    uniforms.uCut.value = state.explore ? uniforms.uPlay.value : 0;
     if (state.explore) stepDrive(dt); else placeCamera();
-    beamMat.opacity = (state.explore ? 0.28 : 0.14) * (1 - state.morph) * (0.8 + 0.2 * Math.sin(state.t * 3));
-    if (bloom) bloom.strength = state.explore ? 0.38 : 0.85 - 0.5 * state.morph;
+    beamMat.opacity = (state.explore ? 0.45 : 0.14) * (1 - state.morph) * (0.8 + 0.2 * Math.sin(state.t * 3));
+    if (bloom) {
+      const p = uniforms.uPlay.value;
+      bloom.strength = (state.explore ? 0.38 : 0.85 - 0.5 * state.morph) * (1 - p * 0.75);
+      bloom.threshold = 0.12 + p * 0.8;            // daylight: only the brightest bits glow
+    }
     if (composer && !small()) composer.render(); else renderer.render(scene, camera);
   }
   function loop(now) { if (!running) return; frame(now); raf = requestAnimationFrame(loop); }
@@ -410,7 +547,9 @@ export function createCity(canvas, { reduced = false } = {}) {
     },
     setExplore(on) {
       state.explore = on; rover.visible = on;
+      paintRover(on);
       if (on) {
+        camYaw = 0;
         state.target = 0; state.morph = 0; uniforms.uIntro.value = 1;
         uniforms.uHover.value = -1; uniforms.uPick.value = -1;
         Object.assign(drive, { x: (cellPos(11) + cellPos(12)) / 2, z: (cellPos(3) + cellPos(4)) / 2, h: 0, v: 0, throttle: 0, steer: 0 });

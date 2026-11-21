@@ -16,7 +16,17 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,300..800;1,300..600&family=JetBrains+Mono:wght@400;500&display=swap">
   <link rel="stylesheet" href="assets/site.css">
   <script type="importmap">{ "imports": { "three": "./assets/vendor/three.module.min.js", "three/addons/": "./assets/vendor/jsm/" } }</script>
-  <script>document.documentElement.classList.add('js');</script>
+  <script>
+    (function () {
+      var d = document.documentElement, pick = null;
+      d.classList.add('js');
+      try { pick = localStorage.getItem('zs-motion'); } catch (e) {}
+      window.__osReduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+      window.__motionPick = pick;
+      window.__reduced = pick ? pick === 'off' : window.__osReduced;
+      if (window.__reduced) d.classList.add('reduce');
+    })();
+  </script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -437,14 +447,62 @@
       <div class="projects__pin">
         <div class="projects__track">
           <div class="projects__intro">
-            <p class="eyebrow">Selected work · 7 repositories</p>
+            <p class="eyebrow">Selected work · 12 repositories</p>
             <h2 class="h2" id="projects-h" data-split>Projects, with their test results.</h2>
             <p class="muted">Every number below comes from the repository's own tests. Scroll sideways through them.</p>
             <a class="link" href="https://github.com/zzzzzzzzak?tab=repositories">All repositories on GitHub</a>
           </div>
 
           <article class="proj" data-tilt>
-            <header class="proj__head"><span class="proj__n">01</span><span class="proj__stack">Python · scikit-learn · Streamlit</span></header>
+            <header class="proj__head"><span class="proj__n">01</span><span class="proj__stack">Python · statistics · experimentation</span></header>
+            <h3>A/B testing platform</h3>
+            <p>CUPED cuts the sample an experiment needs by 40%, and a sequential SPRT lets people check results every day without inflating false positives. Tested on 300 simulated experiments.</p>
+            <div class="chart" data-chart='{"title":"False-positive rate when the null is true (target 5%)","fmt":"pct","items":[["Fixed horizon",4.9],["Daily peeking",24.6],["Sequential SPRT",4.1]],"hi":2,"max":30}'></div>
+            <dl class="proj__m"><div><dt>Sample saved</dt><dd>40.0%</dd></div><div><dt>Peeking error</dt><dd>24.6 → 4.1%</dd></div><div><dt>Simulations</dt><dd>300</dd></div></dl>
+            <a class="link" href="https://github.com/zzzzzzzzak/ab-testing-experimentation-platform">See the experimentation code</a>
+          </article>
+
+          <article class="proj" data-tilt>
+            <header class="proj__head"><span class="proj__n">02</span><span class="proj__stack">Python · SciPy · Streamlit</span></header>
+            <h3>Marketing mix model</h3>
+            <p>Weibull adstock, Hill saturation and a non-negative Bayesian ridge, then SLSQP moves budget between channels: +1.09% weekly revenue for the same spend, over 10 simulated 156-week runs.</p>
+            <div class="chart" data-chart='{"title":"Extra weekly revenue from reallocation, 95% interval","fmt":"usd","items":[["Low",6015],["Mean",8200],["High",10640]],"hi":1}'></div>
+            <dl class="proj__m"><div><dt>R²</dt><dd>0.9643</dd></div><div><dt>MAPE</dt><dd>1.64%</dd></div><div><dt>Per year</dt><dd>+$426,419</dd></div></dl>
+            <a class="link" href="https://github.com/zzzzzzzzak/causal-marketing-mix-modeling">See the marketing mix code</a>
+          </article>
+
+          <article class="proj" data-tilt>
+            <header class="proj__head"><span class="proj__n">03</span><span class="proj__stack">Python · BG/NBD · survival analysis</span></header>
+            <h3>SaaS lifetime value</h3>
+            <p>BG/NBD and Gamma-Gamma models forecast 12-month value for 1,500 accounts, with Markov multi-touch attribution and Kaplan-Meier retention curves.</p>
+            <div class="chart chart--ring" data-ring="0.781" aria-hidden="true">
+              <svg viewBox="0 0 120 120"><circle class="ring-bg" cx="60" cy="60" r="48"/><circle class="ring-fg" cx="60" cy="60" r="48" pathLength="1"/></svg>
+              <div class="ring-v"><b>0.781</b><span>mean P(alive)</span></div>
+            </div>
+            <dl class="proj__m"><div><dt>12-month CLV</dt><dd>$13,418</dd></div><div><dt>Top channel</dt><dd>Sales demo</dd></div><div><dt>Log-rank p</dt><dd>&lt; 1e-13</dd></div></dl>
+            <a class="link" href="https://github.com/zzzzzzzzak/saas-clv-retention-dynamics">See the CLV code</a>
+          </article>
+
+          <article class="proj" data-tilt>
+            <header class="proj__head"><span class="proj__n">04</span><span class="proj__stack">Python · operations research</span></header>
+            <h3>Supply chain inventory</h3>
+            <p>Multi-echelon safety stock for 1 warehouse, 4 hubs, 16 stores and 20 SKUs, plus a 52-week simulation of how order swings grow upstream.</p>
+            <div class="chart" data-chart='{"title":"Bullwhip: order variance vs customer demand","fmt":"x","items":[["Retail stores",1.00],["Regional hubs",1.86],["Factory",15.65]],"hi":2}'></div>
+            <dl class="proj__m"><div><dt>Saved a year</dt><dd>$117,185</dd></div><div><dt>Holding cost</dt><dd>−7.04%</dd></div><div><dt>Service level</dt><dd>100%</dd></div></dl>
+            <a class="link" href="https://github.com/zzzzzzzzak/supply-chain-inventory-optimizer">See the inventory code</a>
+          </article>
+
+          <article class="proj" data-tilt>
+            <header class="proj__head"><span class="proj__n">05</span><span class="proj__stack">Python · pricing · simulation</span></header>
+            <h3>Marketplace surge pricing</h3>
+            <p>Sets surge prices across 8 city zones and 96 fifteen-minute slots, and holds 1.0× when supply is balanced. Compared with flat pricing over 10 simulated days.</p>
+            <div class="chart" data-chart='{"title":"Lift over static 1.0× pricing","fmt":"pct","items":[["Trips fulfilled",6.1],["Gross bookings",44.6]],"hi":1,"max":50}'></div>
+            <dl class="proj__m"><div><dt>Mean surge</dt><dd>1.36×</dd></div><div><dt>Bookings a day</dt><dd>$2.82M</dd></div><div><dt>Driver share</dt><dd>75%</dd></div></dl>
+            <a class="link" href="https://github.com/zzzzzzzzak/marketplace-liquidity-pricing-engine">See the pricing code</a>
+          </article>
+
+          <article class="proj" data-tilt>
+            <header class="proj__head"><span class="proj__n">06</span><span class="proj__stack">Python · scikit-learn · Streamlit</span></header>
             <h3>Customer churn and retention</h3>
             <p>A churn model on 7,043 telecom customers. Moving the cutoff from 0.50 to 0.38 catches 307 of 374 churners in the test set.</p>
             <div class="chart" data-chart='{"title":"Net benefit on the test set","fmt":"usd","items":[["Logistic baseline",182400],["Ensemble at 0.50",234720],["Ensemble at 0.38",257880]],"hi":2}'></div>
@@ -453,7 +511,7 @@
           </article>
 
           <article class="proj" data-tilt>
-            <header class="proj__head"><span class="proj__n">02</span><span class="proj__stack">Python · SQLite · Parquet</span></header>
+            <header class="proj__head"><span class="proj__n">07</span><span class="proj__stack">Python · SQLite · Parquet</span></header>
             <h3>Equity forecasting pipeline</h3>
             <p>Forecasts for 120 tickers in a SQLite and Parquet store, with checks for splits, bad ticks and gaps. The morning report runs in under 45 seconds.</p>
             <div class="chart" data-chart='{"title":"Sharpe ratio, walk-forward window 9","fmt":"2","items":[["Benchmark",2.40],["Model",3.10]],"hi":1}'></div>
@@ -462,7 +520,7 @@
           </article>
 
           <article class="proj" data-tilt>
-            <header class="proj__head"><span class="proj__n">03</span><span class="proj__stack">SQL · DAX · Power BI</span></header>
+            <header class="proj__head"><span class="proj__n">08</span><span class="proj__stack">SQL · DAX · Power BI</span></header>
             <h3>Enterprise sales BI</h3>
             <p>A star schema with 40,000 sales facts, 12 KPIs in SQL and DAX, and drill-down by time, region, product, segment and channel.</p>
             <div class="chart chart--star" aria-hidden="true">
@@ -477,7 +535,7 @@
           </article>
 
           <article class="proj" data-tilt>
-            <header class="proj__head"><span class="proj__n">04</span><span class="proj__stack">Python · statistics · CI gate</span></header>
+            <header class="proj__head"><span class="proj__n">09</span><span class="proj__stack">Python · statistics · CI gate</span></header>
             <h3>LLM agent eval harness</h3>
             <p>A 60-task benchmark for LLM agents with bootstrap intervals, permutation and McNemar tests, and a CI gate that blocks a weaker release.</p>
             <div class="chart" data-chart='{"title":"Pass rate, baseline v1 vs candidate v2","fmt":"pct","items":[["baseline_v1",80.0],["candidate_v2",95.0]],"hi":1,"max":100}'></div>
@@ -486,7 +544,7 @@
           </article>
 
           <article class="proj" data-tilt>
-            <header class="proj__head"><span class="proj__n">05</span><span class="proj__stack">PyTorch · quantization</span></header>
+            <header class="proj__head"><span class="proj__n">10</span><span class="proj__stack">PyTorch · quantization</span></header>
             <h3>Quant-ops engine</h3>
             <p>INT8 per-channel and INT4 group-wise quantization for a 12.86M-parameter model, with an FP16 softmax overflow test.</p>
             <div class="chart" data-chart='{"title":"Weight size in MB","fmt":"mb","items":[["FP32",49.06],["INT8 per channel",12.38],["INT4, group 128",6.56]],"hi":2}'></div>
@@ -495,7 +553,7 @@
           </article>
 
           <article class="proj" data-tilt>
-            <header class="proj__head"><span class="proj__n">06</span><span class="proj__stack">PyTorch · retrieval · re-ranking</span></header>
+            <header class="proj__head"><span class="proj__n">11</span><span class="proj__stack">PyTorch · retrieval · re-ranking</span></header>
             <h3>Video moment search</h3>
             <p>Finds the moment in a video that matches a sentence: shot cuts, a 512-dimension dual encoder and a cross-attention re-ranker.</p>
             <div class="chart" data-chart='{"title":"Recall at tIoU 0.5","fmt":"pct","items":[["Recall@1",50.0],["Recall@3",75.0]],"hi":1,"max":100}'></div>
@@ -504,7 +562,7 @@
           </article>
 
           <article class="proj" data-tilt>
-            <header class="proj__head"><span class="proj__n">07</span><span class="proj__stack">PyTorch · SE-ResNet · FFT</span></header>
+            <header class="proj__head"><span class="proj__n">12</span><span class="proj__stack">PyTorch · SE-ResNet · FFT</span></header>
             <h3>Deepfake detector</h3>
             <p>Spots AI-made faces by pairing an SE-ResNet image stream with the 2D FFT power spectrum, which generators get wrong.</p>
             <div class="chart chart--ring" data-ring="0.954" aria-hidden="true">
@@ -642,9 +700,17 @@
     <div class="wrap foot__row">
       <span>© 2026 Zakir Siddiqui · Maharashtra, India · working remotely</span>
       <span>Built with Three.js, GSAP and Lenis</span>
+      <button type="button" class="motion-toggle">Turn animations off</button>
       <a class="link" href="#top">Back to top</a>
     </div>
   </footer>
+
+  <a class="to-top" href="#top" aria-label="Back to top"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+  <div class="motion-note" role="status" hidden>
+    <span>Animations are off because your device asks for reduced motion.</span>
+    <button type="button" data-motion="on">Turn them on</button>
+    <button type="button" class="motion-note__x" aria-label="Dismiss">×</button>
+  </div>
 
   <script src="assets/vendor/gsap.min.js" defer></script>
   <script src="assets/vendor/ScrollTrigger.min.js" defer></script>
