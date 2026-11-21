@@ -278,6 +278,11 @@ $$('a[href^="#"]').forEach((a) => a.addEventListener('click', (e) => {
   const openBtn = $('.survey-open'), ui = $('.survey');
   if (!city || !openBtn) { openBtn?.remove(); return; }
   const SITES = [
+    { t: 'A/B testing platform', s: 'Python · statistics', d: 'CUPED cuts the sample a test needs by 40%.', m: [['Sample saved', '40.0%'], ['Peeking error', '24.6 → 4.1%'], ['Simulations', '300']], u: 'ab-testing-experimentation-platform' },
+    { t: 'Marketing mix model', s: 'Python · SciPy', d: 'Same budget, moved between channels: +1.09% weekly revenue.', m: [['R²', '0.9643'], ['MAPE', '1.64%'], ['Per year', '+$426,419']], u: 'causal-marketing-mix-modeling' },
+    { t: 'SaaS lifetime value', s: 'Python · BG/NBD · survival', d: '12-month value forecasts for 1,500 accounts.', m: [['12-month CLV', '$13,418'], ['P(alive)', '0.781'], ['Top channel', 'Sales demo']], u: 'saas-clv-retention-dynamics' },
+    { t: 'Supply chain inventory', s: 'Python · operations research', d: 'Safety stock across a 21-node network.', m: [['Saved a year', '$117,185'], ['Holding cost', '−7.04%'], ['Factory bullwhip', '15.65×']], u: 'supply-chain-inventory-optimizer' },
+    { t: 'Marketplace surge pricing', s: 'Python · simulation', d: 'Surge prices across 8 zones, 96 slots a day.', m: [['GMV lift', '+44.6%'], ['Trips', '+6.1%'], ['Mean surge', '1.36×']], u: 'marketplace-liquidity-pricing-engine' },
     { t: 'Customer churn', s: 'Python · scikit-learn', d: 'Cutoff 0.38 catches 307 of 374 churners.', m: [['Recall', '82.1%'], ['ROC-AUC', '0.848'], ['Retained', '$257,880']], u: 'customer-churn-retention-analysis' },
     { t: 'Equity forecasting', s: 'Python · SQLite · Parquet', d: '120 tickers, a morning report in under 45 s.', m: [['Sharpe, w9', '3.10'], ['Windows', '10'], ['Tickers', '120']], u: 'equity-forecasting-pipeline' },
     { t: 'Enterprise sales BI', s: 'SQL · DAX · Power BI', d: 'A star schema with 40,000+ sales facts.', m: [['KPIs', '12'], ['Dimensions', '5'], ['Fact rows', '40,000+']], u: 'enterprise-sales-bi-analytics' },
@@ -290,8 +295,8 @@ $$('a[href^="#"]').forEach((a) => a.addEventListener('click', (e) => {
   labels.innerHTML = SITES.map((p, i) => `<span class="lm" data-i="${i}"><b>${String(i + 1).padStart(2, '0')}</b> ${p.t}<em></em></span>`).join('');
   const lms = $$('.lm', labels);
   let seen = new Set();
-  try { seen = new Set(JSON.parse(localStorage.getItem('zs-surveyed') || '[]')); } catch (e) { /* storage blocked */ }
-  const save = () => { try { localStorage.setItem('zs-surveyed', JSON.stringify([...seen])); } catch (e) { /* ignore */ } };
+  try { seen = new Set(JSON.parse(localStorage.getItem('zs-surveyed-12') || '[]')); } catch (e) { /* storage blocked */ }
+  const save = () => { try { localStorage.setItem('zs-surveyed-12', JSON.stringify([...seen])); } catch (e) { /* ignore */ } };
   const keys = new Set(), joyV = { x: 0, y: 0, on: false };
   let active = false, raf = 0, open = -1;
 

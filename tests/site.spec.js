@@ -133,7 +133,7 @@ test('survey mode opens, drives to a project site and closes with Escape', async
   await page.waitForTimeout(3200);
   await page.locator('.survey-open').click();
   await expect(page.locator('.survey')).toBeVisible();
-  await expect(page.locator('.lm')).toHaveCount(7);
+  await expect(page.locator('.lm')).toHaveCount(12);
   await page.evaluate(() => {
     if (window.city && window.city.drive && window.city.landmarks) {
       const lm = window.city.landmarks[3];
