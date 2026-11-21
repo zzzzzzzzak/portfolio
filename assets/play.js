@@ -83,6 +83,11 @@ export const DB = {
   projects: {
     cols: ['name', 'stack', 'metric', 'value', 'repo'],
     rows: [
+      ['ab-testing-platform', 'Python, statistics', 'sample saved by CUPED', '40.0%', 'ab-testing-experimentation-platform'],
+      ['marketing-mix-model', 'Python, SciPy', 'R squared', '0.9643', 'causal-marketing-mix-modeling'],
+      ['saas-clv', 'Python, BG/NBD, survival', 'mean 12-month CLV', '$13,418', 'saas-clv-retention-dynamics'],
+      ['inventory-optimizer', 'Python, operations research', 'working capital saved a year', '$117,185', 'supply-chain-inventory-optimizer'],
+      ['surge-pricing', 'Python, simulation', 'GMV lift vs static', '44.6%', 'marketplace-liquidity-pricing-engine'],
       ['customer-churn', 'Python, scikit-learn', 'recall', '82.1%', 'customer-churn-retention-analysis'],
       ['equity-forecasting', 'Python, SQLite, Parquet', 'sharpe, window 9', '3.10', 'equity-forecasting-pipeline'],
       ['sales-bi', 'SQL, DAX, Power BI', 'KPIs', '12', 'enterprise-sales-bi-analytics'],

@@ -54,6 +54,7 @@ const fmt = {
   pct: (v) => v.toFixed(1) + '%',
   mb: (v) => v.toFixed(2) + ' MB',
   2: (v) => v.toFixed(2),
+  x: (v) => v.toFixed(2) + '×',
 };
 $$('.chart[data-chart]').forEach((el) => {
   const c = JSON.parse(el.dataset.chart);
@@ -318,13 +319,19 @@ $$('a[href^="#"]').forEach((a) => a.addEventListener('click', (e) => {
     city.setInput(th, st);
     const dv = city.drive;
     let near = -1, nd = 1e9;
+    const placed = [];                                        // labels already on screen this frame
     city.landmarks.forEach((l, i) => {
       const d = Math.hypot(l.x - dv.x, l.z - dv.z), s = city.toScreen(l.x, Math.min(l.h + 0.4, 1.9), l.z);
       const el = lms[i], W = ui.clientWidth, H = ui.clientHeight;
       let x = s.x, y = s.y;
       if (!s.on) { x = W - x; y = H; }                       // behind the rover: mirror to the bottom edge
-      const cx = Math.min(W - 110, Math.max(110, x)), cy = Math.min(H - 70, Math.max(120, y));
+      let cx = Math.min(W - 110, Math.max(110, x)), cy = Math.min(H - 70, Math.max(120, y));
       const edge = cx !== x || cy !== y;
+      if (edge) {                                             // stack edge labels instead of piling them up
+        const top = cy < H / 2;
+        while (placed.some((p) => Math.abs(p.x - cx) < 200 && Math.abs(p.y - cy) < 28)) cy += top ? 30 : -30;
+      }
+      placed.push({ x: cx, y: cy });
       el.style.transform = `translate(${cx}px, ${cy}px) translate(-50%, -100%)`;
       el.style.opacity = edge ? 0.55 : 1;
       el.classList.toggle('is-edge', edge);
@@ -345,8 +352,7 @@ $$('a[href^="#"]').forEach((a) => a.addEventListener('click', (e) => {
       count.textContent = seen.size;
       seen.forEach((i) => lms[i]?.classList.add('is-seen'));
       done.hidden = seen.size < SITES.length;
-      const d = new Date();
-      clock.textContent = `lighting follows your clock · ${String(d.getHours()).padStart(2, '0')}:${String(d.getMinutes()).padStart(2, '0')} ${city.day > 0.5 ? 'day' : 'night'}`;
+      clock.textContent = 'lane assist on · let go of steering to straighten up';
       city.setExplore(true);
       $('.survey__exit').focus({ preventScroll: true });
       raf = requestAnimationFrame(tick);

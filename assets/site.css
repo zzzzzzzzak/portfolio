@@ -540,6 +540,14 @@ kbd { font: 11px var(--mono); padding: 2px 6px; border-radius: 5px; background: 
   .hero__ctrl .btn--survey { --h: 38px; }
 }
 .lm.is-edge { font-size: 11px; padding: 4px 8px; }
+/* the game is a daylight town: give the HUD solid chips so it reads over a bright sky */
+.survey__title, .survey__keys, .survey__clock { padding: 8px 14px; border-radius: 999px; background: rgb(5 7 10 / .72); backdrop-filter: blur(8px); box-shadow: inset 0 0 0 1px var(--line-2); }
+.survey__clock { color: #c6cdd5; }
+.survey__exit { background: rgb(5 7 10 / .72); box-shadow: inset 0 0 0 1px var(--line-2); }
+.survey__exit:hover { background: rgb(5 7 10 / .9); }
+.lm { background: rgb(5 7 10 / .82); }
+.lm.is-near { background: var(--accent); }
+@media (pointer: coarse) { .survey__clock { display: none; } }
 
 /* ================= agentic AI ================= */
 .agents { padding: clamp(100px, 14vw, 180px) 0; border-top: 1px solid var(--line); position: relative; overflow: hidden; }

@@ -87,12 +87,12 @@ test('every link and button outside running text is at least 24px tall on a phon
   expect(small).toEqual([]);
 });
 
-test('the 3D hero, the blueprint story and seven projects are on the page', async ({ page }) => {
+test('the 3D hero, the blueprint story and twelve projects are on the page', async ({ page }) => {
   await open(page);
   await expect(page.locator('.hero__canvas')).toBeVisible();
   await expect(page.locator('.story .step')).toHaveCount(4);
   await expect(page.locator('.bp')).toBeVisible();
-  await expect(page.locator('.proj')).toHaveCount(7);
+  await expect(page.locator('.proj')).toHaveCount(12);
   for (const c of await page.locator('.chart[data-chart]').all()) await expect(c.locator('.chart__row').first()).toBeAttached();
 });
 

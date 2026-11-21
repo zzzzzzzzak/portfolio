@@ -15,7 +15,7 @@ ML systems, backend pipelines and web front ends, with the real numbers from eac
 | Work | Data analysis, data science and ML, backend pipelines, web development, each with a live visual |
 | Lab | Switch between the three churn models and watch 374 churners light up; run the churn-by-contract query and click the bars |
 | Agents | Agentic AI with LLMs: tool use, planning loops, RAG, evals and guardrails, plus a live agent that plans, calls real tools (SQL over career.db, a calculator, search over the page) and checks its answer, animated on a diagram |
-| Projects | Seven repositories in a horizontal scroll, each with its test results as an animated chart |
+| Projects | Twelve repositories in a horizontal scroll, newest analytics work first, each with its test results as an animated chart |
 | Experience | Eight roles since 2017 on a drawn timeline, with four before-and-after bars |
 | Skills | Marquee, a draggable physics graph of tools by discipline, skill levels and education |
 | Terminal | A SQL prompt over the career: projects, roles, skills, education (WHERE, LIKE, ORDER BY, COUNT) |
