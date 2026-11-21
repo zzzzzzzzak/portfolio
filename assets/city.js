@@ -249,8 +249,8 @@ export function createCity(canvas, { reduced = false } = {}) {
     aIdx[k] = k;
     aSeed[k] = 0.72 * ((i + j) / (2 * N - 2)) + 0.28 * rand();
   }
-  // seven landmark towers, one per project
-  const LAND_CELLS = [[6, 6], [6, 17], [10, 1], [13, 12], [17, 5], [18, 18], [22, 10]];
+  // twelve landmark towers, one per project (the five newest first, matching the projects section)
+  const LAND_CELLS = [[2, 2], [2, 13], [9, 9], [14, 22], [21, 15], [6, 6], [6, 17], [10, 1], [13, 12], [17, 5], [18, 18], [22, 10]];
   const landmarks = LAND_CELLS.map(([i, j], n) => {
     const k = i * N + j;
     aCity[k * 4 + 2] = 3.6 + (n % 3) * 0.7;
